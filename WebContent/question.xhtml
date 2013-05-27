@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<ui:composition template="/templates/template.xhtml">
+			<ui:define name="pageTitle">Question</ui:define>
+			<ui:define name="pageContent">
+                <div class="row">
+                    <aside class="large-4 push-8 columns">
+                        <div class="stacked-box">
+                            Para criar uma pergunta, basta clicar no botão abaixo:
+                            <br/><br/>
+                            <a href="#" class="btn green">PERGUNTAR</a>
+                        </div>
+                    </aside>
+                    <div class="large-8 pull-4 columns">
+            
+                        <section class="stacked-box full-question">
+                            <div class="row">
+                                <div class="large-3 columns">
+                                    <img src="#{request.contextPath}/public/images/bernardo.png" alt="" class="avatar" />
+                                </div>
+                                <div class="large-9 columns">
+                                    <span class="title">Como funciona o padrão de projeto observer?</span>
+                                    <span class="author">por <a href="#">Bernardo Gurgel</a> às 15:17 de 26/03/2013</span>
+                                    <div class="tags">
+                                        <a href="#" class="tag">Design Patterns</a>
+                                        <a href="#" class="tag">Arquitetura de Software</a>
+                                    </div>
+                                </div>
+                            </div>
+                                    <div class="content">
+                                        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a quam justo. Curabitur iaculis pretium purus eu mattis. Nunc interdum aliquam dui nec pretium. Ut pretium condimentum nunc at fermentum. In varius, dui eu venenatis condimentum, dolor magna sagittis mi, id volutpat purus metus nec nulla. Nulla facilisi. Suspendisse porttitor faucibus libero, non sagittis felis sollicitudin sit amet. Nullam aliquet ultricies arcu sollicitudin gravida. Phasellus vulputate vestibulum diam, sit amet imperdiet tortor bibendum nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent commodo nulla a erat volutpat at dictum felis hendrerit. Nulla sit amet eleifend enim.</p>
+            
+                                        <p>In hac habitasse platea dictumst. Nunc pulvinar faucibus aliquet. Sed turpis purus, adipiscing nec viverra eu, blandit non tellus. Morbi sed purus eros, vel consectetur orci. Integer ligula dui, euismod a posuere at, dictum nec lectus. Nam est est, fermentum eget placerat in, gravida in lorem. Suspendisse malesuada aliquet lacus aliquet ultricies. Sed augue justo, feugiat in commodo et, ultrices non nisi.</p>
+            
+                                        <p>Vestibulum tempor, arcu nec posuere scelerisque, eros nisi faucibus nisi, sit amet pharetra felis leo ac velit. Cras nec nisl nec purus malesuada luctus sit amet a mauris. Etiam vel felis lectus. Cras tortor ipsum, laoreet vitae laoreet eget, vehicula eu lectus. Phasellus sit amet mollis sapien. Nulla pharetra elementum lobortis. Phasellus a est mauris. Vestibulum accumsan egestas tellus nec venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In cursus feugiat nisi, vel posuere arcu malesuada sit amet. Pellentesque fermentum justo sit amet diam varius venenatis accumsan sapien aliquet. </p>
+                            </div>
+                        </section>
+            
+                        <section class="stacked-box answer">
+                            <div class="row">
+                                <div class="large-3 columns">
+                                    <img src="#{request.contextPath}/public/images/thaisa.png" alt="" class="avatar" />
+                                </div>
+                                <div class="large-9 columns">
+                                    <span class="author"><a href="#">Thaisa Ramos</a> escreveu:</span>
+                                    <p>Proin at odio lorem, eget venenatis massa. Morbi rutrum, lorem id auctor mattis, neque tortor dignissim odio, sit amet consequat dui tellus imperdiet magna. Ut molestie dictum accumsan. Integer elementum scelerisque mattis. Vivamus sit amet purus id dolor consectetur mollis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi molestie, felis a condimentum tempor, ante turpis dictum augue, at egestas nisi massa at eros. Donec bibendum lacus condimentum ante venenatis blandit. </p>
+                                </div>
+                            </div>
+                        </section>
+            
+                        <section class="stacked-box answer">
+                            <div class="row">
+                                <div class="large-3 columns">
+                                    <img src="#{request.contextPath}/public/images/thiago.png" alt="" class="avatar" />
+                                </div>
+                                <div class="large-9 columns">
+                                    <span class="author"><a href="#">Thiago César</a> escreveu:</span>
+                                    <p>Proin at odio lorem, eget venenatis massa. Morbi rutrum, lorem id auctor mattis, neque tortor dignissim odio, sit amet consequat dui tellus imperdiet magna. Ut molestie dictum accumsan. Integer elementum scelerisque mattis. Vivamus sit amet purus id dolor consectetur mollis. </p>
+                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi molestie, felis a condimentum tempor, ante turpis dictum augue, at egestas nisi massa at eros. Donec bibendum lacus condimentum ante venenatis blandit. </p>
+                                </div>
+                            </div>
+                        </section>
+            
+                        <section class="stacked-box answer">
+                            <div class="row">
+                                <div class="large-3 columns">
+                                    <img src="#{request.contextPath}/public/images/renato.png" alt="" class="avatar" />
+                                </div>
+                                <div class="large-9 columns">
+                                    <span class="author"><a href="#">Renato Mesquita</a> escreveu:</span>
+                                    <p>Não faço idéia rsrs </p>
+                                </div>
+                            </div>
+                        </section>
+            
+                    </div>
+                </div>
+			</ui:define>
+	</ui:composition>
+
+</html>
