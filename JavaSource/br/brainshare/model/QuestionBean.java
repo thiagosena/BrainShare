@@ -2,6 +2,7 @@ package br.brainshare.model;
 
 import java.util.Date;
 
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+
+import br.brainshare.business.IServiceQuestion;
+import br.brainshare.business.ServiceQuestion;
 
 @Entity
 @Table(name = "question")
@@ -84,6 +89,15 @@ public class QuestionBean {
 
 	public void setDateRegister(Date dateRegister) {
 		this.dateRegister = dateRegister;
+	}
+	
+	public String show(){
+		IServiceQuestion service = new ServiceQuestion();
+		QuestionBean q = null; 
+		q = service.getQuestionInstance(title);
+		HttpSession sessaoHttp = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);  
+        sessaoHttp.setAttribute("questaoClicada", q);
+		return "question";
 	}
 	
 }

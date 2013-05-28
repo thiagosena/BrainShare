@@ -13,5 +13,6 @@ public interface IServiceQuestion {
 	public QuestionBean getQuestionInstance(QuestionBean question);
 	public QuestionBean editQuestion(QuestionBean q);
 	public void delete(QuestionBean q);
+	public QuestionBean getQuestionInstance(String title);
 	
 }

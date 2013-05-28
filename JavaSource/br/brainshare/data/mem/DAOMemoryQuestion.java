@@ -58,4 +58,10 @@ public class DAOMemoryQuestion implements IDAOQuestion{
 		return null;
 	}
 
+	@Override
+	public QuestionBean getQuestionInstance(String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

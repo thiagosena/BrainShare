@@ -1,20 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#principal.xhtml" PATH="/principal.xhtml"
-  SHAPE="256,289,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#principal.xhtml:0" NAME="item"
-   PATH="/principal.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="sair::#login.xhtml" NAME="output"
-    PATH="/login.xhtml" TARGET="rules:#login.xhtml" TITLE="sair" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
-  SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#login.xhtml:0" NAME="item"
-   PATH="/login.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="inicio::#principal.xhtml" NAME="output"
-    PATH="/principal.xhtml" TARGET="rules:#principal.xhtml"
-    TITLE="inicio" model-entity="JSFProcessItemOutput"/>
-  </PROCESS-ITEM>
- </PROCESS-ITEM>
-</PROCESS>
+<PROCESS model-entity="JSFProcess"/>

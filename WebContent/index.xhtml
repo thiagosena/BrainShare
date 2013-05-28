@@ -25,15 +25,24 @@
             
             <div class="large-8 pull-4 columns">
                 <section class="stacked-box question">
-                    <a href="question.jsf"> <span class="title">Como funciona o padrão de projeto observer?</span>
-                    </a> <span class="author">por <a href="#">Bernardo Gurgel</a> às 15:17 de 26/03/2013
-                    </span>
-                    <div class="tags">
-                        <a href="#" class="tag">Design Patterns</a> <a href="#" class="tag">Arquitetura de Software</a>
-                    </div>
-                    <span class="question-note">10 Votos</span> <span class="question-note">3 Respostas</span>
+                <h:form id="listQuestion">
+                    <h:dataTable value="#{questionController.lista}" var="question" >
+                        <h:column>
+                            <h:commandLink action="#{question.show}"> <span class="title">#{question.title}</span></h:commandLink>
+                        
+                            <span class="author">por <a href="#">#{question.user.username}</a> às #{question.dateRegister}</span>
+                        
+                            <div class="tags">
+                                <a href="#" class="tag">#{question.tags.name}</a> 
+                            </div>
+                       
+                            <span class="question-note">10 Votos</span> <span class="question-note">3 Respostas</span>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
                 </section>
             </div>
+            
         </div>
     </ui:define>
 </ui:composition>

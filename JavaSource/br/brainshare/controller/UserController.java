@@ -51,7 +51,7 @@ public class UserController {
 			this.user = service.getUserInstance(user);
 			HttpSession sessaoHttp = (HttpSession) facesContext.getExternalContext().getSession(true);  
             sessaoHttp.setAttribute("usuarioLogado", user);  
-			return "inicio";
+			return "principal";
 		} else {
 			  /* Cria uma mensagem. */
 		      FacesMessage msg = new FacesMessage("Usuário ou senha inválido!");
@@ -67,7 +67,7 @@ public class UserController {
 	public String logout() {
 		this.user = null;
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "sair";
+		return "index";
 	}
 
 	public UserBean getUser() {

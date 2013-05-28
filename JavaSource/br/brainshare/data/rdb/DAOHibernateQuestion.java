@@ -58,6 +58,14 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 		this.session.delete(q);
 	}
 
+	@Override
+	public QuestionBean getQuestionInstance(String title) {
+		QuestionBean questionInstance = (QuestionBean) session.createCriteria(QuestionBean.class)
+				.add(Restrictions.eq("title", title))
+				.uniqueResult();
+		return questionInstance;
+	}
+
 
 
 

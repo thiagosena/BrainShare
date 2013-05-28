@@ -1,6 +1,7 @@
 package br.brainshare.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -23,6 +24,7 @@ public class QuestionController {
 
 	private QuestionBean quest;
 	private TagBean tagInstance;
+	private List<QuestionBean> lista = null;
 	private IServiceQuestion service = new ServiceQuestion();
 	private IServiceTag sTag = new ServiceTag();
 	
@@ -67,6 +69,13 @@ public class QuestionController {
 
 	public void setQuest(QuestionBean quest) {
 		this.quest = quest;
+	}
+
+	public List<QuestionBean> getLista() {
+		if(lista == null){
+			lista = service.listAll();
+		}
+		return lista;
 	}
 
 }

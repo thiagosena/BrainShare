@@ -11,4 +11,5 @@ public interface IDAOQuestion {
 	public void delete(QuestionBean q);
 	public boolean findQuestion(QuestionBean question);
 	public QuestionBean getQuestionInstance(QuestionBean q);
+	public QuestionBean getQuestionInstance(String title);
 }

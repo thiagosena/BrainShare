@@ -43,8 +43,7 @@ public class ServiceQuestion implements IServiceQuestion{
 
 	@Override
 	public QuestionBean getQuestionInstance(QuestionBean question) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.daoQuestion.getQuestionInstance(question);
 	}
 	
 	@Override
@@ -54,7 +53,11 @@ public class ServiceQuestion implements IServiceQuestion{
 	
 	@Override
 	public QuestionBean editQuestion(QuestionBean q) {
-		return this.daoQuestion.getQuestionInstance(q);
+		return null;
+	}
+	@Override
+	public QuestionBean getQuestionInstance(String title) {
+		return this.daoQuestion.getQuestionInstance(title);
 	}
 	
 
