@@ -7,9 +7,11 @@ import br.brainshare.model.QuestionBean;
 
 public interface IServiceQuestion {
 
-	public boolean insertQuestion(QuestionBean q) throws CampoVazioException;
-	public List<QuestionBean> findAll();
+	public boolean save(QuestionBean q) throws CampoVazioException;
+	public List<QuestionBean> listAll();
+	public boolean findQuestion(QuestionBean quest);
+	public QuestionBean getQuestionInstance(QuestionBean question);
 	public QuestionBean editQuestion(QuestionBean q);
-	public void delete(Integer id);
+	public void delete(QuestionBean q);
 	
 }

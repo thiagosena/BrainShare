@@ -18,8 +18,8 @@ public class DAOHibernateUser implements IDAOUser {
 		Criteria lista = session.createCriteria(UserBean.class);
 
 		@SuppressWarnings("unchecked")
-		List<UserBean> questions = lista.list();
-		return questions;
+		List<UserBean> user = lista.list();
+		return user;
 	}
 
 	@Override
@@ -46,6 +46,14 @@ public class DAOHibernateUser implements IDAOUser {
 		} else {
 			return true;	
 		}
+	}
+
+	@Override
+	public UserBean getUserInstance(UserBean user) {
+		UserBean userInstance = (UserBean) session.createCriteria(UserBean.class)
+				.add(Restrictions.and(Restrictions.eq("username",user.getUsername()),Restrictions.eq("password",user.getPassword())))
+	            .uniqueResult();
+		return userInstance;
 	}
 
 }

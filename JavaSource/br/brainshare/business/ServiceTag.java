@@ -3,12 +3,12 @@ package br.brainshare.business;
 import java.util.List;
 
 import br.brainshare.data.IDAOTag;
-import br.brainshare.data.mem.DAOMemoryTag;
 import br.brainshare.model.TagBean;
+import br.brainshare.util.DAOFactory;
 
 public class ServiceTag implements IServiceTag {
 	
-	IDAOTag dao = new DAOMemoryTag();
+	IDAOTag daoTag = DAOFactory.createTagDAO();
 	
 	private static ServiceTag singleton = null;
 	
@@ -20,25 +20,17 @@ public class ServiceTag implements IServiceTag {
 	}
 
 	public List<TagBean> getTags() {
-		return this.dao.getTags();
-	}
-	
-	public boolean searchTag(String tagName) {
-		List<TagBean>tags = this.getTags();
-		boolean result = false;
-//		Itera a lista a procura de uma tag com o nome passado por parametro 
-		for (int i = 0; i < tags.size(); i++) {
-			if (tags.get(i).getName().contains(tagName)) {
-				result = true;
-			}
-		}
-		return result;
+		return this.daoTag.getTags();
 	}
 
 	@Override
 	public void save(TagBean tag) {
-		// TODO Auto-generated method stub
-		
+		this.daoTag.save(tag);
+	}
+
+	@Override
+	public TagBean getTagInstance(TagBean tagInstance) {
+		return this.daoTag.getTagInstance(tagInstance);
 	}
 
 }

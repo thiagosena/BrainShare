@@ -8,5 +8,5 @@ public interface IServiceTag {
 
 	public void save(TagBean tag);
 	public List<TagBean> getTags();
-	public boolean searchTag(String tagName);
+	public TagBean getTagInstance(TagBean tagInstance);
 }

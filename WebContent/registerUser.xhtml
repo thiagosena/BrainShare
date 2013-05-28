@@ -5,15 +5,6 @@
 <ui:composition template="/templates/template.xhtml">
     <ui:define name="pageTitle">Cadastro de Usuário</ui:define>
     <ui:define name="pageContent">
-        <script type="text/javascript">
-        function validarSenha(){ 
-            var senha1 = document.getElementById('form:senha1').value; 
-            var senha2 = document.getElementById('form:senha2').value; 
-            if(senha1 != senha2){ 
-                alert("Erro na confirmação da senha. Valor inválido."); 
-            } 
-         }
-         </script>
         <div class="row">
             <div class="large-4 large-offset-4 columns sign-in">
                 <div class="stacked-box">
@@ -31,10 +22,10 @@
                         </h:inputSecret>
         
                         <h:outputFormat value="Confirmar Senha: " />
-                        <h:inputSecret id="senha2" onblur="validarSenha();" />
+                        <h:inputSecret id="senha2" value="#{userController.passwordVal}" />
         
                         <h:outputFormat value="Email: " />
-                        <h:inputText value="#{userController.user.email}" />
+                        <h:inputText id="email" value="#{userController.user.email}" />
                     
                         <h:commandButton action="#{userController.save}" value="Salvar" />
                     </h:form>

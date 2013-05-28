@@ -1,13 +1,34 @@
-<!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-    <h:head>
-        <title>Insert title here</title>
-    </h:head>
-    <h:body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/template.xhtml">
+    <ui:define name="pageTitle">Cadastro de Pergunta</ui:define>
+    <ui:define name="pageContent">
+      <div class="row">
+            <div class="large-4 large-offset-4 columns sign-in">
+                <div class="stacked-box">
+                    <div class="sign-in__title">
+                        Perguntar
+                    </div>
+                    <h:form id="create">
+            
+                        <h:outputLabel value="Titulo: " />
+                        <h:inputText value="#{questionController.quest.title}" />
         
-    </h:body>
+                        <h:outputLabel value="Insira sua pergunta " /> 
+                        <h:inputTextarea value="#{questionController.quest.question}" /> 
+        
+                        <h:outputLabel value="Tag " />
+                        <h:inputText value="#{questionController.tagInstance.name}" />
+                            
+                        <h:commandButton action="#{questionController.save}" value="Salvar pergunta" />
+            
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+
 </html>

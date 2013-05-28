@@ -8,5 +8,6 @@ public interface IDAOTag {
 
 	public void save(TagBean tag);
 	public List<TagBean> getTags();
+	public TagBean getTagInstance(TagBean tag);
 
 }

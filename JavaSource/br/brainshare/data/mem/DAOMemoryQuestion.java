@@ -27,9 +27,9 @@ public class DAOMemoryQuestion implements IDAOQuestion{
 		}
 	}
 
-	public void delete(Integer id) {  
-		if (id != null)  
-			mapPerguntas.remove(id);  
+	public void delete(QuestionBean q) {  
+		if (q.getId() != null)  
+			mapPerguntas.remove(q.getId());  
 	}  
 
 	public List<QuestionBean> findAll() {  
@@ -38,6 +38,24 @@ public class DAOMemoryQuestion implements IDAOQuestion{
 
 	public List<QuestionBean> list() {
 		return new ArrayList<QuestionBean>(this.mapPerguntas.values());
+	}
+
+	@Override
+	public List<QuestionBean> listAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean findQuestion(QuestionBean question) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public QuestionBean getQuestionInstance(QuestionBean q) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -9,13 +9,10 @@
 		with actual data.
 	 -->
 	<ui:composition template="/templates/template.xhtml">
-			<ui:define name="pageTitle">Home - User</ui:define>
+			<ui:define name="pageTitle">Title</ui:define>
 			<ui:define name="pageContent">
-				Bem Vindo <h:outputFormat value="#{sessionScope['usuarioLogado'].username}" style="color:red;" /> <br />
-                Email: <h:outputFormat value="#{sessionScope['usuarioLogado'].email}" style="color:red;" /><br/>
-                Senha: <h:outputFormat value="#{sessionScope['usuarioLogado'].password}" style="color:red;" /><br />
-            <h:commandButton value="Logout" action="#{userController.logout}" />
-			</ui:define>
+			
+            </ui:define>
 	</ui:composition>
 
 </html>

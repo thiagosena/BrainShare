@@ -39,4 +39,10 @@ public class DAOMemoryTag implements IDAOTag {
 		
 	}
 
+	@Override
+	public TagBean getTagInstance(TagBean tag) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

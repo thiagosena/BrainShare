@@ -10,10 +10,10 @@ import br.brainshare.model.QuestionBean;
 public class ServiceQuestion implements IServiceQuestion{
 
 	private static ServiceQuestion singleton = null;	
-	private IDAOQuestion daopergunta;
+	private IDAOQuestion daoQuestion;
 
 	public ServiceQuestion(){
-		this.daopergunta = new DAOMemoryQuestion();
+		this.daoQuestion = new DAOMemoryQuestion();
 
 	}
 	public static ServiceQuestion getInstance(){
@@ -23,26 +23,39 @@ public class ServiceQuestion implements IServiceQuestion{
 		return singleton;
 	}
 
+	@Override
+	public List<QuestionBean> listAll() {
+		return this.daoQuestion.listAll();
 
-	public boolean insertQuestion(QuestionBean pergunta) throws CampoVazioException {
-		this.daopergunta.save(pergunta);
-		return true;
+	}
+
+	@Override
+	public void delete(QuestionBean q) {
+		this.daoQuestion.delete(q);
 
 	}
 	
-	public List<QuestionBean> findAll() {
-		return this.daopergunta.findAll();
-
-	}
-
-	public void delete(Integer id) {
-		this.daopergunta.delete(id);
-
-	}
 	@Override
-	public QuestionBean editQuestion(QuestionBean q) {
+	public boolean save(QuestionBean q) throws CampoVazioException {
+		this.daoQuestion.save(q);
+		return true;
+	}
+
+	@Override
+	public QuestionBean getQuestionInstance(QuestionBean question) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public boolean findQuestion(QuestionBean quest) {
+		return this.daoQuestion.findQuestion(quest);
+	}
+	
+	@Override
+	public QuestionBean editQuestion(QuestionBean q) {
+		return this.daoQuestion.getQuestionInstance(q);
+	}
+	
 
 }

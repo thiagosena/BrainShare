@@ -42,4 +42,11 @@ public class DAOMemoryUser implements IDAOUser {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	@Override
+	public UserBean getUserInstance(UserBean user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

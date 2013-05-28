@@ -9,5 +9,5 @@ public interface IDAOUser {
 	public List<UserBean> listAll();
 	public void save(UserBean user);
 	public boolean findUser(UserBean user);
-	
+	public UserBean getUserInstance(UserBean user);
 }

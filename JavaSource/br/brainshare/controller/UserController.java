@@ -6,18 +6,23 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import br.brainshare.business.IServiceUser;
 import br.brainshare.business.ServiceUser;
 import br.brainshare.model.UserBean;
 
 @ManagedBean(name = "userController")
-@RequestScoped
+@RequestScoped  
 public class UserController {
 
-	private UserBean user = new UserBean();
+	private UserBean user;
 	private IServiceUser service = new ServiceUser();
 	private String passwordVal;
+
+	public UserController(){
+		user = new UserBean();
+	}
 	
 	public String getPasswordVal() {
 		return passwordVal;
@@ -27,26 +32,42 @@ public class UserController {
 		this.passwordVal = passwordVal;
 	}
 
-	public void save(){
+	public String save(){
 		if(!user.getPassword().equals(passwordVal)){
 			FacesMessage msg = new FacesMessage("Senhas diferentes");
 			FacesContext.getCurrentInstance().addMessage("erro", msg);
+			return null;
 		} else{
 			user.setDateRegister(new Date());
 			service.save(user);
+			return "login";
 		}
 	}
 	
 	public String login(){
+		FacesContext facesContext = FacesContext.getCurrentInstance(); 
+		
 		if(service.findUser(user)){
-			return "principal";
+			this.user = service.getUserInstance(user);
+			HttpSession sessaoHttp = (HttpSession) facesContext.getExternalContext().getSession(true);  
+            sessaoHttp.setAttribute("usuarioLogado", user);  
+			return "inicio";
 		} else {
-			/* Cria uma mensagem. */
+			  /* Cria uma mensagem. */
 		      FacesMessage msg = new FacesMessage("Usuário ou senha inválido!");
 		      /* Obtém a instancia atual do FacesContext e adiciona a mensagem de erro nele. */
 		      FacesContext.getCurrentInstance().addMessage("erro", msg);
 		      return null;
 		}
+	}
+	
+	//para recuperar o usuário:
+	//usuario = (UserBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario"); 
+	
+	public String logout() {
+		this.user = null;
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "sair";
 	}
 
 	public UserBean getUser() {

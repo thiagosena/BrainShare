@@ -36,5 +36,10 @@ public class ServiceUser implements IServiceUser{
 	@Override
 	public boolean findUser(UserBean user) {
 		return this.daoUsuario.findUser(user); 
+	}
+
+	@Override
+	public UserBean getUserInstance(UserBean user) {
+		return this.daoUsuario.getUserInstance(user);
 	}	
 }

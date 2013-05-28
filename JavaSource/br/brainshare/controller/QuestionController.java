@@ -1,46 +1,70 @@
 package br.brainshare.controller;
 
-import java.util.List;
+import java.util.Date;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import lib.exceptions.CampoVazioException;
+import br.brainshare.business.IServiceQuestion;
+import br.brainshare.business.IServiceTag;
+import br.brainshare.business.ServiceQuestion;
+import br.brainshare.business.ServiceTag;
 import br.brainshare.model.QuestionBean;
+import br.brainshare.model.TagBean;
+import br.brainshare.model.UserBean;
 
+@ManagedBean(name = "questionController")
+@RequestScoped
 public class QuestionController {
 
-	private QuestionBean questionUser;
-	private Integer id;
-	private boolean sucessoCadastroView = false;
 
+	private QuestionBean quest;
+	private TagBean tagInstance;
+	private IServiceQuestion service = new ServiceQuestion();
+	private IServiceTag sTag = new ServiceTag();
+	
 	public QuestionController(){
-		this.id = 1;
-		this.questionUser = new QuestionBean();
+		quest = new QuestionBean();
+		tagInstance = new TagBean();
 	}
 
-	public String adicionarPergunta() throws CampoVazioException{
-		this.id++;
-		this.questionUser = new QuestionBean();
-		this.sucessoCadastroView = true;
-		return "sucesso";
+	public void save() throws CampoVazioException{
+		quest.setDateRegister(new Date());
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		UserBean user = (UserBean) session.getAttribute("usuarioLogado");
+		quest.setUser(user);
+		tagInstance = sTag.getTagInstance(tagInstance);
+		quest.setTags(tagInstance);
+		
+		service.save(quest);
 	}
 
-	public List<QuestionBean> getPerguntas() {
-		return null;  
-	}  
-
-	public void delete(){ 
-	}  
-
-	public QuestionBean getPerguntaUsuario() {
-		return questionUser;
+	public String find(){
+		if(service.findQuestion(quest)){
+			this.quest = service.getQuestionInstance(quest);
+			return "success";
+		} else {
+			return "failed";
+		}
 	}
 
-	public void setPerguntaUsuario(QuestionBean perguntaUsuario) {
-		this.questionUser = perguntaUsuario;
+	public TagBean getTagInstance() {
+		return tagInstance;
 	}
 
-	public boolean isSucessoCadastroView() {
-		return sucessoCadastroView;
+	public void setTagInstance(TagBean tagInstance) {
+		this.tagInstance = tagInstance;
 	}
 
+	public QuestionBean getQuest() {
+		return quest;
+	}
+
+	public void setQuest(QuestionBean quest) {
+		this.quest = quest;
+	}
 
 }
