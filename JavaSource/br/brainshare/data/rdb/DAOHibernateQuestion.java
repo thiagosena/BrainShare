@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import br.brainshare.data.IDAOQuestion;
+import br.brainshare.model.AnswerBean;
 import br.brainshare.model.QuestionBean;
 
 public class DAOHibernateQuestion implements IDAOQuestion {
@@ -53,6 +55,16 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 			 
 		return lista;
 	}
+	
+	@Override
+	public Integer countByAnswer(Integer id){
+		Long teste = id.longValue();
+		Integer numberAnswer = (Integer) session.createCriteria(AnswerBean.class)
+				.add(Restrictions.eq("id", teste))
+				.setProjection(Projections.rowCount()).uniqueResult();
+		return numberAnswer;
+		
+	}
 
 	@Override
 	public QuestionBean getQuestionInstance(QuestionBean q) {
@@ -86,6 +98,11 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 	public QuestionBean editQuestion(QuestionBean q) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void update(QuestionBean q) {
+		this.session.update(q);
 	}
 
 

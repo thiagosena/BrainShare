@@ -25,10 +25,10 @@ public class QuestionBean {
 	@GeneratedValue
 	private Integer id;
 	
-	@NotNull
+	@NotNull(message = "Por favor, insira uma questao.")
 	private String question;
 	
-	@NotNull
+	@NotNull(message = "Por favor, insira um titulo.")
 	private String title;
 	
 	@NotNull
@@ -42,6 +42,8 @@ public class QuestionBean {
 	@OneToOne
 	@JoinColumn(name = "id_user", nullable = true)
 	private UserBean user;
+	
+	private Integer countAnswer;
 
 	public UserBean getUser() {
 		return user;
@@ -89,6 +91,17 @@ public class QuestionBean {
 
 	public void setDateRegister(Date dateRegister) {
 		this.dateRegister = dateRegister;
+	}
+	
+	public Integer getCountAnswer() {
+		//IServiceQuestion service = new ServiceQuestion();
+		//this.countAnswer = service.countByAnswer(id); 
+		return countAnswer;
+	}
+	
+	public void setCountAnswer(Integer countAnswer) {
+		this.countAnswer = 0;
+		this.countAnswer = this.countAnswer+countAnswer;
 	}
 	
 	public String show(){

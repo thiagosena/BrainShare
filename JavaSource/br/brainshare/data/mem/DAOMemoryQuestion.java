@@ -77,4 +77,16 @@ public class DAOMemoryQuestion implements IDAOQuestion{
 		return null;
 	}
 
+	@Override
+	public Integer countByAnswer(Integer q) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(QuestionBean q) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -66,7 +66,9 @@ public class UserController {
 	
 	public String logout() {
 		this.user = null;
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		HttpSession sessaoHttp = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		sessaoHttp.removeAttribute("usuarioLogado");
+		sessaoHttp.invalidate();
 		return "index";
 	}
 

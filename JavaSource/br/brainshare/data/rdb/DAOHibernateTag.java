@@ -2,6 +2,8 @@ package br.brainshare.data.rdb;
 
 import java.util.List;
 
+import lib.exceptions.tagInexistenteException;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -12,7 +14,7 @@ import br.brainshare.model.TagBean;
 public class DAOHibernateTag implements IDAOTag {
 
 	private Session session;
-	
+
 	@Override
 	public void save(TagBean tag) {
 		this.session.save(tag);
@@ -21,21 +23,21 @@ public class DAOHibernateTag implements IDAOTag {
 	@Override
 	public List<TagBean> getTags() {
 		Criteria lista = session.createCriteria(TagBean.class);
-		
+
 		@SuppressWarnings("unchecked")
 		List<TagBean> tags = lista.list();
-		
+
 		return tags;
 	}
 
 	@Override
 	public TagBean getTagInstance(TagBean tag) {
-		TagBean questionInstance = (TagBean) session.createCriteria(TagBean.class)
-				.add(Restrictions.eq("name", tag.getName()))
-				.uniqueResult();
+		TagBean questionInstance = (TagBean) session
+				.createCriteria(TagBean.class)
+				.add(Restrictions.eq("name", tag.getName())).uniqueResult();
 		return questionInstance;
 	}
-	
+
 	public Session getSession() {
 		return session;
 	}
@@ -44,5 +46,16 @@ public class DAOHibernateTag implements IDAOTag {
 		this.session = session;
 	}
 
+	@Override
+	public TagBean searchTag(String nome) throws tagInexistenteException {
+		try {
+			TagBean tag = (TagBean) session.createCriteria(TagBean.class)
+					.add(Restrictions.eq("name", nome)).uniqueResult();
+
+			return tag;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 }

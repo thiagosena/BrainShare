@@ -3,12 +3,15 @@ package br.brainshare.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import lib.exceptions.CampoVazioException;
+import lib.exceptions.tagException;
+import lib.exceptions.tagInexistenteException;
 import br.brainshare.business.IServiceQuestion;
 import br.brainshare.business.IServiceTag;
 import br.brainshare.business.ServiceQuestion;
@@ -21,37 +24,53 @@ import br.brainshare.model.UserBean;
 @RequestScoped
 public class QuestionController {
 
-
 	private QuestionBean quest;
 	private TagBean tagInstance;
-	
+
 	private List<QuestionBean> lista = null;
+	private List<QuestionBean> listaTag = null;
 	private List<QuestionBean> listByTitleOrDesc = null;
-	
+
 	private IServiceQuestion service = new ServiceQuestion();
 	private IServiceTag sTag = new ServiceTag();
-	
+
 	private String titleOrDesc;
 
-	public QuestionController(){
+	public QuestionController() {
 		quest = new QuestionBean();
 		tagInstance = new TagBean();
 	}
 
-	public String save() throws CampoVazioException{
+	public String save() throws CampoVazioException, tagInexistenteException, tagException {
+
 		quest.setDateRegister(new Date());
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(true);
 		UserBean user = (UserBean) session.getAttribute("usuarioLogado");
 		quest.setUser(user);
+		quest.setCountAnswer(0);
+
+		try {
+			sTag.searchTag(tagInstance.getName());
+
+		} catch (tagInexistenteException e) {
+			FacesMessage msg = new FacesMessage(
+					"Essa tag não existe, criei uma nova tag");
+			FacesContext.getCurrentInstance().addMessage("erro", msg);
+			return null;
+		}
 		tagInstance = sTag.getTagInstance(tagInstance);
+		tagInstance.incrementQtd();
+		System.out.println(tagInstance.getName());
+
 		quest.setTags(tagInstance);
-		
+
 		service.save(quest);
-		
+
 		return "index";
 	}
 
-	public String find(){
+	public String find() {
 		return "findQuestion";
 	}
 
@@ -72,15 +91,16 @@ public class QuestionController {
 	}
 
 	public List<QuestionBean> getLista() {
-		if(lista == null){
+		if (lista == null) {
 			lista = service.listAll();
 		}
 		return lista;
 	}
 
 	public List<QuestionBean> getListByTitleOrDesc() {
-		if(listByTitleOrDesc == null){
-			listByTitleOrDesc = service.findQuestionByTitleOrDescription(titleOrDesc, titleOrDesc);
+		if (listByTitleOrDesc == null) {
+			listByTitleOrDesc = service.findQuestionByTitleOrDescription(
+					titleOrDesc, titleOrDesc);
 		}
 		return listByTitleOrDesc;
 	}
@@ -93,4 +113,11 @@ public class QuestionController {
 		this.titleOrDesc = titleOrDesc;
 	}
 
+	public List<QuestionBean> getListaTag() {
+		return listaTag;
+	}
+
+	public void setListaTag(List<QuestionBean> listaTag) {
+		this.listaTag = listaTag;
+	}
 }

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tag")
@@ -13,7 +14,26 @@ public class TagBean {
 	@GeneratedValue
 	private Integer id;
 	
+	@NotNull
 	private String name;
+	
+	private Integer qtd;
+
+	public TagBean(){
+		this.qtd=0;
+	}
+	
+	public Integer getQtd() {
+		return qtd;
+	}
+
+	public void setQtd(Integer qtd) {
+		this.qtd = qtd;
+	}
+
+	public void incrementQtd(){
+		this.qtd++;
+	}
 
 	public Integer getId() {
 		return id;

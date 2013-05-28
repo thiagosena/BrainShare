@@ -19,6 +19,7 @@ public class DAOHibernateAnswer implements IDAOAnswer {
 	@Override
 	public void save(AnswerBean resp)
 			throws RespostaException {
+		
 		this.session.save(resp);
 	}
 	

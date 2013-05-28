@@ -22,4 +22,8 @@ public interface IDAOQuestion {
 	public QuestionBean getQuestionInstance(String title);
 	
 	public List<QuestionBean> findQuestionByTitleOrDescription(String title, String desc);
+
+	public Integer countByAnswer(Integer id);
+	
+	public void update(QuestionBean q);
 }

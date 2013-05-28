@@ -3,6 +3,8 @@ package br.brainshare.data.mem;
 import java.util.ArrayList;
 import java.util.List;
 
+import lib.exceptions.tagInexistenteException;
+
 import br.brainshare.data.IDAOTag;
 import br.brainshare.model.TagBean;
 
@@ -41,6 +43,12 @@ public class DAOMemoryTag implements IDAOTag {
 
 	@Override
 	public TagBean getTagInstance(TagBean tag) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TagBean searchTag(String nome) throws tagInexistenteException {
 		// TODO Auto-generated method stub
 		return null;
 	}

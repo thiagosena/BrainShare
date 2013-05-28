@@ -64,6 +64,14 @@ public class ServiceQuestion implements IServiceQuestion{
 			String desc) {
 		return this.daoQuestion.findQuestionByTitleOrDescription(title, desc);
 	}
+	@Override
+	public Integer countByAnswer(Integer id) {
+		return this.daoQuestion.countByAnswer(id);
+	}
+	@Override
+	public void update(QuestionBean q) {
+		this.daoQuestion.update(q);
+	}
 	
 
 }

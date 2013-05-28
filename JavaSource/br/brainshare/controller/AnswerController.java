@@ -9,9 +9,12 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import lib.exceptions.CampoVazioException;
 import lib.exceptions.RespostaException;
 import br.brainshare.business.IServiceAnswer;
+import br.brainshare.business.IServiceQuestion;
 import br.brainshare.business.ServiceAnswer;
+import br.brainshare.business.ServiceQuestion;
 import br.brainshare.model.AnswerBean;
 import br.brainshare.model.QuestionBean;
 import br.brainshare.model.UserBean;
@@ -30,17 +33,21 @@ public class AnswerController implements Serializable {
 
 	private IServiceAnswer service = new ServiceAnswer();
 
+	private IServiceQuestion serviceQuestion = new ServiceQuestion();
+
 	public AnswerController() {
 		this.answer = new AnswerBean();
 	}
 	
-	public String save() throws RespostaException{
+	public String save() throws RespostaException, CampoVazioException{
 		this.answer.setDateRegister(new Date());
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		UserBean user = (UserBean) session.getAttribute("usuarioLogado");
 		QuestionBean question = (QuestionBean) session.getAttribute("questaoClicada");
 		this.answer.setUser(user);
 		this.answer.setQuestion(question);
+		question.setCountAnswer(1);
+		this.serviceQuestion.update(question);
 		this.service.save(answer);
 		return "index";
 	}
