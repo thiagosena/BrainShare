@@ -4,8 +4,8 @@ import java.util.List;
 
 import lib.exceptions.CampoVazioException;
 import br.brainshare.data.IDAOQuestion;
-import br.brainshare.data.mem.DAOMemoryQuestion;
 import br.brainshare.model.QuestionBean;
+import br.brainshare.util.DAOFactory;
 
 public class ServiceQuestion implements IServiceQuestion{
 
@@ -13,7 +13,7 @@ public class ServiceQuestion implements IServiceQuestion{
 	private IDAOQuestion daoQuestion;
 
 	public ServiceQuestion(){
-		this.daoQuestion = new DAOMemoryQuestion();
+		this.daoQuestion = DAOFactory.createQuestionDAO();
 
 	}
 	public static ServiceQuestion getInstance(){

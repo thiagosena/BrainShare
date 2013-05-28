@@ -31,7 +31,7 @@ public class QuestionController {
 		tagInstance = new TagBean();
 	}
 
-	public void save() throws CampoVazioException{
+	public String save() throws CampoVazioException{
 		quest.setDateRegister(new Date());
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		UserBean user = (UserBean) session.getAttribute("usuarioLogado");
@@ -40,6 +40,8 @@ public class QuestionController {
 		quest.setTags(tagInstance);
 		
 		service.save(quest);
+		
+		return "index";
 	}
 
 	public String find(){
