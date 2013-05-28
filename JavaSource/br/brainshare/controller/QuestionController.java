@@ -24,10 +24,15 @@ public class QuestionController {
 
 	private QuestionBean quest;
 	private TagBean tagInstance;
+	
 	private List<QuestionBean> lista = null;
+	private List<QuestionBean> listByTitleOrDesc = null;
+	
 	private IServiceQuestion service = new ServiceQuestion();
 	private IServiceTag sTag = new ServiceTag();
 	
+	private String titleOrDesc;
+
 	public QuestionController(){
 		quest = new QuestionBean();
 		tagInstance = new TagBean();
@@ -47,12 +52,7 @@ public class QuestionController {
 	}
 
 	public String find(){
-		if(service.findQuestion(quest)){
-			this.quest = service.getQuestionInstance(quest);
-			return "success";
-		} else {
-			return "failed";
-		}
+		return "findQuestion";
 	}
 
 	public TagBean getTagInstance() {
@@ -76,6 +76,21 @@ public class QuestionController {
 			lista = service.listAll();
 		}
 		return lista;
+	}
+
+	public List<QuestionBean> getListByTitleOrDesc() {
+		if(listByTitleOrDesc == null){
+			listByTitleOrDesc = service.findQuestionByTitleOrDescription(titleOrDesc, titleOrDesc);
+		}
+		return listByTitleOrDesc;
+	}
+
+	public String getTitleOrDesc() {
+		return titleOrDesc;
+	}
+
+	public void setTitleOrDesc(String titleOrDesc) {
+		this.titleOrDesc = titleOrDesc;
 	}
 
 }

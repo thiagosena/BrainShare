@@ -64,4 +64,17 @@ public class DAOMemoryQuestion implements IDAOQuestion{
 		return null;
 	}
 
+	@Override
+	public QuestionBean editQuestion(QuestionBean q) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<QuestionBean> findQuestionByTitleOrDescription(String title,
+			String desc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -13,7 +13,7 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 
 	private Session session;
 
-	
+	@Override
 	public List<QuestionBean> listAll() {
 		Criteria lista = session.createCriteria(QuestionBean.class);
 
@@ -22,18 +22,12 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 		return questions;
 	}
 
+	@Override
 	public void save(QuestionBean question) {
 		this.session.save(question);
 	}
 
-	public Session getSession() {
-		return session;
-	}
-
-	public void setSession(Session session) {
-		this.session = session;
-	}
-
+	@Override
 	public boolean findQuestion(QuestionBean question) {
 		QuestionBean questionr = (QuestionBean) session.createCriteria(QuestionBean.class)
 				.add(Restrictions.or(Restrictions.eq("title", question.getTitle()), Restrictions.eq("question", question.getQuestion())))
@@ -44,6 +38,20 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 		} else {
 			return true;	
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<QuestionBean> findQuestionByTitleOrDescription(String title, String desc){
+		List<QuestionBean> lista = session.createCriteria(QuestionBean.class)
+					.add(Restrictions.or(
+							Restrictions.like("title", "%"+title+"%"),
+							Restrictions.like("question", "%"+desc+"%")
+					)).list();
+		
+		System.out.println("lista: "+lista.get(0).getTitle());
+			 
+		return lista;
 	}
 
 	@Override
@@ -66,7 +74,19 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 		return questionInstance;
 	}
 
+	public Session getSession() {
+		return session;
+	}
 
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+	@Override
+	public QuestionBean editQuestion(QuestionBean q) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }

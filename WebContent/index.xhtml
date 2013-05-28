@@ -11,35 +11,34 @@
             <aside class="large-4 push-8 columns">
                 <div class="stacked-box">
                     <div class="row collapse">
-                        <div class="small-3 large-4 columns">
-                            <span class="prefix">Buscar</span>
-                        </div>
-                        <div class="small-9 large-8 columns">
-                            <input type="text" class="search-input" />
-                        </div>
+                        <h:form id="findQuestion">
+                            <div class="small-3 large-4 columns">
+                                <h:commandLink action="#{questionController.find}" target="_blank"><span class="prefix">Buscar</span></h:commandLink>
+                            </div>
+                            <div class="small-9 large-8 columns">
+                                <h:inputText value="#{questionController.titleOrDesc}" class="search-input" />
+                            </div>
+                        </h:form>
                     </div>
                     Para criar uma pergunta, basta clicar no botão abaixo: <br />
                     <br /> <a href="insertQuestion.jsf" class="btn green">PERGUNTAR</a>
                 </div>
             </aside>
             <h:form id="listQuestion">
-                    <h:dataTable value="#{questionController.lista}" var="question" styleClass="large-8 pull-4 columns stacked-box question">
-            
-                
-                        <h:column>
-                            <h:commandLink action="#{question.show}"> <span class="title">#{question.title}</span></h:commandLink>
-                        
-                            <span class="author">por <a href="#">#{question.user.username}</a> às #{question.dateRegister}</span>
-                        
-                            <div class="tags">
-                                <a href="#" class="tag">#{question.tags.name}</a> 
-                            </div>
-                       
-                            <span class="question-note">10 Votos</span> <span class="question-note">3 Respostas</span>
-                        </h:column>
+                <h:dataTable value="#{questionController.lista}" var="question" styleClass="large-8 pull-4 columns stacked-box question">
+                    <h:column>
+                        <h:commandLink action="#{question.show}"> <span class="title">#{question.title}</span></h:commandLink>
+                    
+                        <span class="author">por <a href="#">#{question.user.username}</a> às #{question.dateRegister}</span>
+                    
+                        <div class="tags">
+                            <a href="#" class="tag">#{question.tags.name}</a> 
+                        </div>
                    
-             </h:dataTable>
-                </h:form>
+                        <span class="question-note">10 Votos</span> <span class="question-note">3 Respostas</span>
+                    </h:column>
+                 </h:dataTable>
+            </h:form>
         </div>
     </ui:define>
 </ui:composition>

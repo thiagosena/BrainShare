@@ -59,6 +59,11 @@ public class ServiceQuestion implements IServiceQuestion{
 	public QuestionBean getQuestionInstance(String title) {
 		return this.daoQuestion.getQuestionInstance(title);
 	}
+	@Override
+	public List<QuestionBean> findQuestionByTitleOrDescription(String title,
+			String desc) {
+		return this.daoQuestion.findQuestionByTitleOrDescription(title, desc);
+	}
 	
 
 }
