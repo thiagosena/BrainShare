@@ -1,18 +1,21 @@
 package br.brainshare.business;
 
+import java.util.List;
+
 import lib.exceptions.RespostaException;
 import br.brainshare.data.IDAOAnswer;
 import br.brainshare.model.AnswerBean;
+import br.brainshare.model.QuestionBean;
 import br.brainshare.util.DAOFactory;
 
 public class ServiceAnswer implements IServiceAnswer {
 
-	private IDAOAnswer daoResposta;
+	private IDAOAnswer daoAnswer;
 
 	private static ServiceAnswer singleton = null;
 	
 	public ServiceAnswer(){
-		this.daoResposta = DAOFactory.createAnswerDAO();
+		this.daoAnswer = DAOFactory.createAnswerDAO();
 	}
 	
 	public static ServiceAnswer getInstance(){
@@ -24,7 +27,12 @@ public class ServiceAnswer implements IServiceAnswer {
 	
 	@Override
 	public void save(AnswerBean resp) throws RespostaException {
-		this.daoResposta.save(resp);
+		this.daoAnswer.save(resp);
+	}
+
+	@Override
+	public List<AnswerBean> listAll(QuestionBean question) {
+		return this.daoAnswer.listAll(question);
 	}
 
 }

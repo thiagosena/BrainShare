@@ -22,11 +22,10 @@
                     <br /> <a href="insertQuestion.jsf" class="btn green">PERGUNTAR</a>
                 </div>
             </aside>
+            <h:form id="listQuestion">
+                    <h:dataTable value="#{questionController.lista}" var="question" styleClass="large-8 pull-4 columns stacked-box question">
             
-            <div class="large-8 pull-4 columns">
-                <section class="stacked-box question">
-                <h:form id="listQuestion">
-                    <h:dataTable value="#{questionController.lista}" var="question" >
+                
                         <h:column>
                             <h:commandLink action="#{question.show}"> <span class="title">#{question.title}</span></h:commandLink>
                         
@@ -38,11 +37,9 @@
                        
                             <span class="question-note">10 Votos</span> <span class="question-note">3 Respostas</span>
                         </h:column>
-                    </h:dataTable>
+                   
+             </h:dataTable>
                 </h:form>
-                </section>
-            </div>
-            
         </div>
     </ui:define>
 </ui:composition>

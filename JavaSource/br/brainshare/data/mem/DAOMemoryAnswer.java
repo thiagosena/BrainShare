@@ -1,11 +1,13 @@
 package br.brainshare.data.mem;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import lib.exceptions.RespostaException;
 import br.brainshare.data.IDAOAnswer;
 import br.brainshare.model.AnswerBean;
+import br.brainshare.model.QuestionBean;
 
 public class DAOMemoryAnswer implements IDAOAnswer {
 	
@@ -22,5 +24,11 @@ public class DAOMemoryAnswer implements IDAOAnswer {
 		} else {
 			this.resposta.put(resp.getQuestion().getId(), resp);
 		}
+	}
+
+	@Override
+	public List<AnswerBean> listAll(QuestionBean question) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
