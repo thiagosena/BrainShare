@@ -4,8 +4,8 @@ import java.util.List;
 
 import lib.exceptions.RespostaException;
 import br.brainshare.data.IDAOAnswer;
-import br.brainshare.model.AnswerBean;
-import br.brainshare.model.QuestionBean;
+import br.brainshare.model.Answer;
+import br.brainshare.model.Question;
 import br.brainshare.util.DAOFactory;
 
 public class ServiceAnswer implements IServiceAnswer {
@@ -26,12 +26,12 @@ public class ServiceAnswer implements IServiceAnswer {
 	}
 	
 	@Override
-	public void save(AnswerBean resp) throws RespostaException {
+	public void save(Answer resp) throws RespostaException {
 		this.daoAnswer.save(resp);
 	}
 
 	@Override
-	public List<AnswerBean> listAll(QuestionBean question) {
+	public List<Answer> listAll(Question question) {
 		return this.daoAnswer.listAll(question);
 	}
 

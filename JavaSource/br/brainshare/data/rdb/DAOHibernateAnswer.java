@@ -9,15 +9,15 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import br.brainshare.data.IDAOAnswer;
-import br.brainshare.model.AnswerBean;
-import br.brainshare.model.QuestionBean;
+import br.brainshare.model.Answer;
+import br.brainshare.model.Question;
 
 public class DAOHibernateAnswer implements IDAOAnswer {
 
 	private Session session;
 
 	@Override
-	public void save(AnswerBean resp)
+	public void save(Answer resp)
 			throws RespostaException {
 		
 		this.session.save(resp);
@@ -32,13 +32,13 @@ public class DAOHibernateAnswer implements IDAOAnswer {
 	}
 
 	@Override
-	public List<AnswerBean> listAll(QuestionBean question) {
-		Criteria lista = session.createCriteria(AnswerBean.class);
+	public List<Answer> listAll(Question question) {
+		Criteria lista = session.createCriteria(Answer.class);
 		Criteria lista2 = lista.createCriteria("question");
 		lista2.add(Restrictions.eq("id", question.getId()));
 		
 		@SuppressWarnings("unchecked")
-		List<AnswerBean> answer = lista.list();
+		List<Answer> answer = lista.list();
 		return answer;
 	}
 }

@@ -1,29 +1,38 @@
 package br.brainshare.controller;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import br.brainshare.business.IServiceUser;
 import br.brainshare.business.ServiceUser;
-import br.brainshare.model.UserBean;
+import br.brainshare.model.User;
 
 @ManagedBean(name = "userController")
-@RequestScoped  
-public class UserController {
+@RequestScoped
+public class UserController implements Serializable {
 
-	private UserBean user;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private User user;
 	private IServiceUser service = new ServiceUser();
 	private String passwordVal;
 
-	public UserController(){
-		user = new UserBean();
+	protected static final String CREDENTIAL = "usuarioLogado";
+
+	public UserController() {
+		user = new User();
 	}
-	
+
 	public String getPasswordVal() {
 		return passwordVal;
 	}
@@ -32,52 +41,71 @@ public class UserController {
 		this.passwordVal = passwordVal;
 	}
 
-	public String save(){
-		if(!user.getPassword().equals(passwordVal)){
+	public String save() {
+		if (!user.getPassword().equals(passwordVal)) {
 			FacesMessage msg = new FacesMessage("Senhas diferentes");
 			FacesContext.getCurrentInstance().addMessage("erro", msg);
 			return null;
-		} else{
+		} else {
 			user.setDateRegister(new Date());
 			service.save(user);
 			return "login";
 		}
 	}
-	
-	public String login(){
-		FacesContext facesContext = FacesContext.getCurrentInstance(); 
-		
-		if(service.findUser(user)){
+
+	public String login() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (service.findUser(user)) {
 			this.user = service.getUserInstance(user);
-			HttpSession sessaoHttp = (HttpSession) facesContext.getExternalContext().getSession(true);  
-            sessaoHttp.setAttribute("usuarioLogado", user);  
-			return "principal";
+			HttpSession sessaoHttp = (HttpSession) facesContext
+					.getExternalContext().getSession(true);
+			sessaoHttp.setAttribute(CREDENTIAL, user);
+			return "pages/principal";
 		} else {
-			  /* Cria uma mensagem. */
-		      FacesMessage msg = new FacesMessage("Usuário ou senha inválido!");
-		      /* Obtém a instancia atual do FacesContext e adiciona a mensagem de erro nele. */
-		      FacesContext.getCurrentInstance().addMessage("erro", msg);
-		      return null;
+			/* Cria uma mensagem. */
+			FacesMessage msg = new FacesMessage("Usuário ou senha inválido!");
+			/*
+			 * Obtém a instancia atual do FacesContext e adiciona a mensagem de
+			 * erro nele.
+			 */
+			FacesContext.getCurrentInstance().addMessage("erro", msg);
+			return null;
 		}
 	}
-	
-	//para recuperar o usuário:
-	//usuario = (UserBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario"); 
-	
-	public String logout() {
-		this.user = null;
-		HttpSession sessaoHttp = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		sessaoHttp.removeAttribute("usuarioLogado");
-		sessaoHttp.invalidate();
-		return "index";
+
+	public boolean isLoggedIn() {
+		return FacesContext.getCurrentInstance().getExternalContext()
+				.getSessionMap().get(CREDENTIAL) != null;
 	}
 
-	public UserBean getUser() {
+	// para recuperar o usuário na sessão:
+	// usuario =
+	// (User)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+
+	public void logout() {
+		this.user = null;
+		HttpSession sessaoHttp = (HttpSession) FacesContext
+				.getCurrentInstance().getExternalContext().getSession(true);
+		sessaoHttp.removeAttribute(CREDENTIAL);
+		sessaoHttp.invalidate();
+		FacesContext faces = FacesContext.getCurrentInstance();  
+        ExternalContext context = faces.getExternalContext();  
+        
+		try {
+			context.redirect("index.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserBean user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 }

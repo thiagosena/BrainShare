@@ -14,7 +14,7 @@ import org.junit.Test;
 import br.brainshare.HibernateUtil;
 import br.brainshare.business.IServiceUser;
 import br.brainshare.business.ServiceUser;
-import br.brainshare.model.UserBean;
+import br.brainshare.model.User;
 
 public class UserTest {
 
@@ -48,7 +48,7 @@ public class UserTest {
 	
 	@Test
 	public void loginTest() {
-		UserBean user = (UserBean) session.createCriteria(UserBean.class)
+		User user = (User) session.createCriteria(User.class)
 				.add(Restrictions.and(Restrictions.eq("username","admin"),Restrictions.eq("password","Admin123")))
 	            .uniqueResult();
 		

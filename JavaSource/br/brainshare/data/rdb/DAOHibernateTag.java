@@ -9,31 +9,31 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import br.brainshare.data.IDAOTag;
-import br.brainshare.model.TagBean;
+import br.brainshare.model.Tag;
 
 public class DAOHibernateTag implements IDAOTag {
 
 	private Session session;
 
 	@Override
-	public void save(TagBean tag) {
+	public void save(Tag tag) {
 		this.session.save(tag);
 	}
 
 	@Override
-	public List<TagBean> getTags() {
-		Criteria lista = session.createCriteria(TagBean.class);
+	public List<Tag> getTags() {
+		Criteria lista = session.createCriteria(Tag.class);
 
 		@SuppressWarnings("unchecked")
-		List<TagBean> tags = lista.list();
+		List<Tag> tags = lista.list();
 
 		return tags;
 	}
 
 	@Override
-	public TagBean getTagInstance(TagBean tag) {
-		TagBean questionInstance = (TagBean) session
-				.createCriteria(TagBean.class)
+	public Tag getTagInstance(Tag tag) {
+		Tag questionInstance = (Tag) session
+				.createCriteria(Tag.class)
 				.add(Restrictions.eq("name", tag.getName())).uniqueResult();
 		return questionInstance;
 	}
@@ -47,9 +47,9 @@ public class DAOHibernateTag implements IDAOTag {
 	}
 
 	@Override
-	public TagBean searchTag(String nome) throws tagInexistenteException {
+	public Tag searchTag(String nome) throws tagInexistenteException {
 		try {
-			TagBean tag = (TagBean) session.createCriteria(TagBean.class)
+			Tag tag = (Tag) session.createCriteria(Tag.class)
 					.add(Restrictions.eq("name", nome)).uniqueResult();
 
 			return tag;

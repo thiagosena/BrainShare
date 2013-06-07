@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "user")
-public class UserBean implements Serializable {
+public class User implements Serializable {
 	/**
 	 * 
 	 */

@@ -8,30 +8,30 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import br.brainshare.data.IDAOQuestion;
-import br.brainshare.model.AnswerBean;
-import br.brainshare.model.QuestionBean;
+import br.brainshare.model.Answer;
+import br.brainshare.model.Question;
 
 public class DAOHibernateQuestion implements IDAOQuestion {
 
 	private Session session;
 
 	@Override
-	public List<QuestionBean> listAll() {
-		Criteria lista = session.createCriteria(QuestionBean.class);
+	public List<Question> listAll() {
+		Criteria lista = session.createCriteria(Question.class);
 
 		@SuppressWarnings("unchecked")
-		List<QuestionBean> questions = lista.list();
+		List<Question> questions = lista.list();
 		return questions;
 	}
 
 	@Override
-	public void save(QuestionBean question) {
+	public void save(Question question) {
 		this.session.save(question);
 	}
 
 	@Override
-	public boolean findQuestion(QuestionBean question) {
-		QuestionBean questionr = (QuestionBean) session.createCriteria(QuestionBean.class)
+	public boolean findQuestion(Question question) {
+		Question questionr = (Question) session.createCriteria(Question.class)
 				.add(Restrictions.or(Restrictions.eq("title", question.getTitle()), Restrictions.eq("question", question.getQuestion())))
 				.uniqueResult();
 		
@@ -44,8 +44,8 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<QuestionBean> findQuestionByTitleOrDescription(String title, String desc){
-		List<QuestionBean> lista = session.createCriteria(QuestionBean.class)
+	public List<Question> findQuestionByTitleOrDescription(String title, String desc){
+		List<Question> lista = session.createCriteria(Question.class)
 					.add(Restrictions.or(
 							Restrictions.like("title", "%"+title+"%"),
 							Restrictions.like("question", "%"+desc+"%")
@@ -59,7 +59,7 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 	@Override
 	public Integer countByAnswer(Integer id){
 		Long teste = id.longValue();
-		Integer numberAnswer = (Integer) session.createCriteria(AnswerBean.class)
+		Integer numberAnswer = (Integer) session.createCriteria(Answer.class)
 				.add(Restrictions.eq("id", teste))
 				.setProjection(Projections.rowCount()).uniqueResult();
 		return numberAnswer;
@@ -67,20 +67,20 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 	}
 
 	@Override
-	public QuestionBean getQuestionInstance(QuestionBean q) {
-		QuestionBean questionInstance = (QuestionBean) session.createCriteria(QuestionBean.class)
+	public Question getQuestionInstance(Question q) {
+		Question questionInstance = (Question) session.createCriteria(Question.class)
 				.add(Restrictions.or(Restrictions.eq("title", q.getTitle()), Restrictions.eq("question", q.getQuestion())))
 				.uniqueResult();
 		return questionInstance;
 	}
 	@Override
-	public void delete(QuestionBean q) {
+	public void delete(Question q) {
 		this.session.delete(q);
 	}
 
 	@Override
-	public QuestionBean getQuestionInstance(String title) {
-		QuestionBean questionInstance = (QuestionBean) session.createCriteria(QuestionBean.class)
+	public Question getQuestionInstance(String title) {
+		Question questionInstance = (Question) session.createCriteria(Question.class)
 				.add(Restrictions.eq("title", title))
 				.uniqueResult();
 		return questionInstance;
@@ -95,13 +95,13 @@ public class DAOHibernateQuestion implements IDAOQuestion {
 	}
 
 	@Override
-	public QuestionBean editQuestion(QuestionBean q) {
+	public Question editQuestion(Question q) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(QuestionBean q) {
+	public void update(Question q) {
 		this.session.update(q);
 	}
 

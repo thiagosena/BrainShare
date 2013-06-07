@@ -15,9 +15,9 @@ import br.brainshare.business.IServiceAnswer;
 import br.brainshare.business.IServiceQuestion;
 import br.brainshare.business.ServiceAnswer;
 import br.brainshare.business.ServiceQuestion;
-import br.brainshare.model.AnswerBean;
-import br.brainshare.model.QuestionBean;
-import br.brainshare.model.UserBean;
+import br.brainshare.model.Answer;
+import br.brainshare.model.Question;
+import br.brainshare.model.User;
 
 @ManagedBean(name = "answerController")
 @RequestScoped
@@ -28,22 +28,22 @@ public class AnswerController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private AnswerBean answer;
-	private List<AnswerBean> lista = null;
+	private Answer answer;
+	private List<Answer> lista = null;
 
 	private IServiceAnswer service = new ServiceAnswer();
 
 	private IServiceQuestion serviceQuestion = new ServiceQuestion();
 
 	public AnswerController() {
-		this.answer = new AnswerBean();
+		this.answer = new Answer();
 	}
 	
 	public String save() throws RespostaException, CampoVazioException{
 		this.answer.setDateRegister(new Date());
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		UserBean user = (UserBean) session.getAttribute("usuarioLogado");
-		QuestionBean question = (QuestionBean) session.getAttribute("questaoClicada");
+		User user = (User) session.getAttribute("usuarioLogado");
+		Question question = (Question) session.getAttribute("questaoClicada");
 		this.answer.setUser(user);
 		this.answer.setQuestion(question);
 		question.setCountAnswer(1);
@@ -52,20 +52,20 @@ public class AnswerController implements Serializable {
 		return "index";
 	}
 	
-	public List<AnswerBean> getLista() {
+	public List<Answer> getLista() {
 		if(this.lista == null){
 			HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-			QuestionBean question = (QuestionBean) session.getAttribute("questaoClicada");
+			Question question = (Question) session.getAttribute("questaoClicada");
 			this.lista = this.service.listAll(question);
 		}
 		return this.lista;
 	}
 
-	public AnswerBean getAnswer() {
+	public Answer getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(AnswerBean answer) {
+	public void setAnswer(Answer answer) {
 		this.answer = answer;
 	}
 	

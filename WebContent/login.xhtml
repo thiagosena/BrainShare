@@ -23,13 +23,11 @@
                         <h:messages id="msgErro" style="color:red; list-style-type: none;" />
                         <h:inputText id="username" required="true" value="#{userController.user.username}" styleClass="sign-in__input" />
 
-                        <h:inputSecret id="password" required="true" value="#{userController.user.password}" styleClass="sign-in__input">
-                            <f:validator validatorId="ValidatePassword"/>
-                        </h:inputSecret>
+                        <h:inputSecret id="password" required="true" value="#{userController.user.password}" styleClass="sign-in__input" />
 
                         <a href="#" class="sign-in__forgot-password" style="width:100px; float: right;">Esqueci a senha</a>
-                        <a href="registerUser.jsf" class="sign-in__forgot-password" style="width:110px; float: left">Não é cadastrado?</a>
-                        <h:commandLink action="#{userController.login}" value="#{msg.login}" styleClass="btn green" />
+                        <a href="pages/registerUser.jsf" class="sign-in__forgot-password" style="width:110px; float: left">Não é cadastrado?</a>
+                        <h:commandLink action="#{userController.login}" value="Login" styleClass="btn green" />
                     </h:form>
             </div>
             <div class="sign-in__note">2013 © Brainshare</div>

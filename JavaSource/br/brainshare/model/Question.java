@@ -19,7 +19,7 @@ import br.brainshare.business.ServiceQuestion;
 
 @Entity
 @Table(name = "question")
-public class QuestionBean {
+public class Question {
 	
 	@Id
 	@GeneratedValue
@@ -37,27 +37,28 @@ public class QuestionBean {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_tag", nullable = false)
-	private TagBean tags;
+	private Tag tags;
 	
 	@OneToOne
 	@JoinColumn(name = "id_user", nullable = true)
-	private UserBean user;
+	private User user;
 	
+	@Column(columnDefinition = "default '0'")
 	private Integer countAnswer;
 
-	public UserBean getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserBean user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public TagBean getTags() {
+	public Tag getTags() {
 		return tags;
 	}
 
-	public void setTags(TagBean tags) {
+	public void setTags(Tag tags) {
 		this.tags = tags;
 	}
 
@@ -100,13 +101,16 @@ public class QuestionBean {
 	}
 	
 	public void setCountAnswer(Integer countAnswer) {
-		this.countAnswer = 0;
-		this.countAnswer = this.countAnswer+countAnswer;
+		if (this.countAnswer != null) {
+			this.countAnswer = this.countAnswer+countAnswer;
+		} else {
+			this.countAnswer = 0;
+		}
 	}
 	
 	public String show(){
 		IServiceQuestion service = new ServiceQuestion();
-		QuestionBean q = null; 
+		Question q = null; 
 		q = service.getQuestionInstance(title);
 		HttpSession sessaoHttp = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);  
         sessaoHttp.setAttribute("questaoClicada", q);

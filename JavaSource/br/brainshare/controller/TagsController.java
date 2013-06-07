@@ -12,22 +12,22 @@ import lib.exceptions.tagInexistenteException;
 
 import br.brainshare.business.IServiceTag;
 import br.brainshare.business.ServiceTag;
-import br.brainshare.model.TagBean;
+import br.brainshare.model.Tag;
 
 @ManagedBean(name = "tagsController")
 @RequestScoped 
 public class TagsController {
 
 
-	private TagBean tag;
-	private List<TagBean> lista = null;
+	private Tag tag;
+	private List<Tag> lista = null;
 	private boolean list;
 
 	private IServiceTag service = new ServiceTag();
 
 
 	public TagsController() {
-		tag = new TagBean();
+		tag = new Tag();
 		setList(false);
 	}
 
@@ -47,17 +47,17 @@ public class TagsController {
 	}
 
 
-	public TagBean getTag() {
+	public Tag getTag() {
 		return tag;
 	}
 
 
 
-	public void setTag(TagBean tag) {
+	public void setTag(Tag tag) {
 		this.tag = tag;
 	}
 	
-	public List<TagBean> getLista() throws tagException {
+	public List<Tag> getLista() throws tagException {
 		if(lista == null){
 			lista = service.getTags();
 		}

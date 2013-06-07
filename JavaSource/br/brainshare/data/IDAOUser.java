@@ -2,12 +2,12 @@ package br.brainshare.data;
 
 import java.util.List;
 
-import br.brainshare.model.UserBean;
+import br.brainshare.model.User;
 
 public interface IDAOUser {
 
-	public List<UserBean> listAll();
-	public void save(UserBean user);
-	public boolean findUser(UserBean user);
-	public UserBean getUserInstance(UserBean user);
+	public List<User> listAll();
+	public void save(User user);
+	public boolean findUser(User user);
+	public User getUserInstance(User user);
 }

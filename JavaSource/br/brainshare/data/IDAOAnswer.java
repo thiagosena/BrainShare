@@ -3,13 +3,13 @@ package br.brainshare.data;
 import java.util.List;
 
 import lib.exceptions.RespostaException;
-import br.brainshare.model.AnswerBean;
-import br.brainshare.model.QuestionBean;
+import br.brainshare.model.Answer;
+import br.brainshare.model.Question;
 
 public interface IDAOAnswer {
 	
-	public void save(AnswerBean resposta) throws RespostaException;
+	public void save(Answer resposta) throws RespostaException;
 
-	public List<AnswerBean> listAll(QuestionBean question);
+	public List<Answer> listAll(Question question);
 	
 }

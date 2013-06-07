@@ -10,19 +10,19 @@ import org.junit.Test;
 
 import br.brainshare.business.IServiceAnswer;
 import br.brainshare.business.ServiceAnswer;
-import br.brainshare.model.AnswerBean;
-import br.brainshare.model.QuestionBean;
-import br.brainshare.model.UserBean;
+import br.brainshare.model.Answer;
+import br.brainshare.model.Question;
+import br.brainshare.model.User;
 
 public class AnswerTest {
 
 	@Test
 	public void salvarTest() {
-		QuestionBean q = new QuestionBean();
+		Question q = new Question();
 		q.setQuestion("Qual o valor em km/h da velocidade da luz?");
 		q.setTitle("Fisica");
-		AnswerBean a = new AnswerBean();
-		UserBean u = new UserBean();
+		Answer a = new Answer();
+		User u = new User();
 		a.setAnswer("Acho que é 300000km/h");
 		a.setQuestion(q);
 		a.setUser(u);

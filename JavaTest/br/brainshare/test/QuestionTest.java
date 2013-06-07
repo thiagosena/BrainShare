@@ -16,7 +16,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.brainshare.HibernateUtil;
-import br.brainshare.model.QuestionBean;
+import br.brainshare.model.Question;
 
 public class QuestionTest {
 	
@@ -49,7 +49,7 @@ public class QuestionTest {
 	
 	@Before
 	public void setup(){
-		QuestionBean q1 = new QuestionBean();
+		Question q1 = new Question();
 		q1.setQuestion("o que é hibernate?");
 		q1.setTitle("informatica");
 		
@@ -59,11 +59,11 @@ public class QuestionTest {
 	
 	@After
 	public void cleanDados(){
-		Criteria lista = session.createCriteria(QuestionBean.class);
+		Criteria lista = session.createCriteria(Question.class);
 		@SuppressWarnings("unchecked")
-		List<QuestionBean> questions = lista.list();
+		List<Question> questions = lista.list();
 		
-		for (QuestionBean question : questions) {
+		for (Question question : questions) {
 			session.delete(question);
 		}
 	}
@@ -72,15 +72,15 @@ public class QuestionTest {
 	public void saveQuestionTest(){
 		Query find = pesquisar("inf");
 		
-		QuestionBean qFind = (QuestionBean) find.uniqueResult();
+		Question qFind = (Question) find.uniqueResult();
 		assertEquals("informatica", qFind.getTitle());
 	}
 	
 	@Test
 	public void listQuestionTest(){
-		Criteria lista = session.createCriteria(QuestionBean.class);
+		Criteria lista = session.createCriteria(Question.class);
 		@SuppressWarnings("unchecked")
-		List<QuestionBean> questions = lista.list();
+		List<Question> questions = lista.list();
 		
 		assertEquals(5, questions.size());
 	}
@@ -88,28 +88,28 @@ public class QuestionTest {
 	@Test
 	public void alterQuestionTest(){
 		Query find = pesquisar("futebol");
-		QuestionBean qAlterado = (QuestionBean) find.uniqueResult();
+		Question qAlterado = (Question) find.uniqueResult();
 		qAlterado.setQuestion("Questão de futebol alterada!");
 		session.update(qAlterado);
 		
-		qAlterado = (QuestionBean) find.uniqueResult();
+		qAlterado = (Question) find.uniqueResult();
 		assertEquals("Questão de futebol alterada!", qAlterado.getQuestion());
 	}
 	
 	@Test
 	public void deleteQuestionTest(){
 		Query find = pesquisar("portugues");
-		QuestionBean qDeletado = (QuestionBean) find.uniqueResult();
+		Question qDeletado = (Question) find.uniqueResult();
 		session.delete(qDeletado);
 		
-		qDeletado = (QuestionBean) find.uniqueResult();
+		qDeletado = (Question) find.uniqueResult();
 		
 		assertNull(qDeletado);
 		
 	}
 	
 	private Query pesquisar(String title) {
-		String sql = "from QuestionBean q where q.title like :title";
+		String sql = "from Question q where q.title like :title";
 		Query find = session.createQuery(sql);
 		find.setString("title", "%"+title+"%");
 		return find;

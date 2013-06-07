@@ -3,27 +3,27 @@ package br.brainshare.business;
 import java.util.List;
 
 import lib.exceptions.CampoVazioException;
-import br.brainshare.model.QuestionBean;
+import br.brainshare.model.Question;
 
 public interface IServiceQuestion {
 
-	public boolean save(QuestionBean q) throws CampoVazioException;
+	public boolean save(Question q) throws CampoVazioException;
 	
-	public List<QuestionBean> listAll();
+	public List<Question> listAll();
 	
-	public void delete(QuestionBean q);
+	public void delete(Question q);
 	
-	public boolean findQuestion(QuestionBean quest);
+	public boolean findQuestion(Question quest);
 	
-	public QuestionBean getQuestionInstance(QuestionBean question);
+	public Question getQuestionInstance(Question question);
 	
-	public QuestionBean editQuestion(QuestionBean q);
+	public Question editQuestion(Question q);
 		
-	public QuestionBean getQuestionInstance(String title);
+	public Question getQuestionInstance(String title);
 	
-	public List<QuestionBean> findQuestionByTitleOrDescription(String title, String desc);
+	public List<Question> findQuestionByTitleOrDescription(String title, String desc);
 	
 	public Integer countByAnswer(Integer id);
 	
-	public void update(QuestionBean q);
+	public void update(Question q);
 }

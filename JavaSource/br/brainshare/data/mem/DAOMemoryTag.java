@@ -6,23 +6,23 @@ import java.util.List;
 import lib.exceptions.tagInexistenteException;
 
 import br.brainshare.data.IDAOTag;
-import br.brainshare.model.TagBean;
+import br.brainshare.model.Tag;
 
 public class DAOMemoryTag implements IDAOTag {
 	
-	private List<TagBean> tags = new ArrayList<TagBean>();
+	private List<Tag> tags = new ArrayList<Tag>();
 
 	public DAOMemoryTag() {
-		TagBean t1 = new TagBean();
+		Tag t1 = new Tag();
 		t1.setName("Programação Distribuída");
 		
-		TagBean t2 = new TagBean();
+		Tag t2 = new Tag();
 		t2.setName("Programação Distribuída");
 		
-		TagBean t3 = new TagBean();
+		Tag t3 = new Tag();
 		t3.setName("Programação Distribuída");
 		
-		TagBean t4 = new TagBean();
+		Tag t4 = new Tag();
 		t4.setName("Programação Distribuída");
 		
 		this.tags.add(t1);
@@ -31,24 +31,24 @@ public class DAOMemoryTag implements IDAOTag {
 		this.tags.add(t4);
 	}
 
-	public List<TagBean> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
 	@Override
-	public void save(TagBean tag) {
+	public void save(Tag tag) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public TagBean getTagInstance(TagBean tag) {
+	public Tag getTagInstance(Tag tag) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public TagBean searchTag(String nome) throws tagInexistenteException {
+	public Tag searchTag(String nome) throws tagInexistenteException {
 		// TODO Auto-generated method stub
 		return null;
 	}

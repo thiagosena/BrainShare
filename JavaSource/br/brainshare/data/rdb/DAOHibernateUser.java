@@ -7,23 +7,23 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import br.brainshare.data.IDAOUser;
-import br.brainshare.model.UserBean;
+import br.brainshare.model.User;
 
 public class DAOHibernateUser implements IDAOUser {
 
 	private Session session;
 
 	@Override
-	public List<UserBean> listAll() {
-		Criteria lista = session.createCriteria(UserBean.class);
+	public List<User> listAll() {
+		Criteria lista = session.createCriteria(User.class);
 
 		@SuppressWarnings("unchecked")
-		List<UserBean> user = lista.list();
+		List<User> user = lista.list();
 		return user;
 	}
 
 	@Override
-	public void save(UserBean user) {
+	public void save(User user) {
 		this.session.save(user);
 	}
 
@@ -36,8 +36,8 @@ public class DAOHibernateUser implements IDAOUser {
 	}
 
 	@Override
-	public boolean findUser(UserBean user) {
-		UserBean userAdd = (UserBean) session.createCriteria(UserBean.class)
+	public boolean findUser(User user) {
+		User userAdd = (User) session.createCriteria(User.class)
 				.add(Restrictions.and(Restrictions.eq("username",user.getUsername()),Restrictions.eq("password",user.getPassword())))
 	            .uniqueResult();
 		
@@ -49,8 +49,8 @@ public class DAOHibernateUser implements IDAOUser {
 	}
 
 	@Override
-	public UserBean getUserInstance(UserBean user) {
-		UserBean userInstance = (UserBean) session.createCriteria(UserBean.class)
+	public User getUserInstance(User user) {
+		User userInstance = (User) session.createCriteria(User.class)
 				.add(Restrictions.and(Restrictions.eq("username",user.getUsername()),Restrictions.eq("password",user.getPassword())))
 	            .uniqueResult();
 		return userInstance;

@@ -2,13 +2,13 @@ package br.brainshare.business;
 
 import java.util.List;
 
-import br.brainshare.model.UserBean;
+import br.brainshare.model.User;
 
 public interface IServiceUser {
 
-	public List<UserBean> listAllUser();
-	public boolean findUser(UserBean user);
-	public UserBean getUserInstance(UserBean user);
-	public void save(UserBean user);
+	public List<User> listAllUser();
+	public boolean findUser(User user);
+	public User getUserInstance(User user);
+	public void save(User user);
 	
 }

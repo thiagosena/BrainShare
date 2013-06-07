@@ -3,7 +3,7 @@ package br.brainshare.business;
 import java.util.List;
 
 import br.brainshare.data.IDAOUser;
-import br.brainshare.model.UserBean;
+import br.brainshare.model.User;
 import br.brainshare.util.DAOFactory;
 
 public class ServiceUser implements IServiceUser{
@@ -24,22 +24,22 @@ public class ServiceUser implements IServiceUser{
 	}
 	
 	
-	public List<UserBean> listAllUser() {
+	public List<User> listAllUser() {
 		return this.daoUsuario.listAll();
 	}
 
 	
-	public void save(UserBean user) {
+	public void save(User user) {
 		this.daoUsuario.save(user);
 	}
 
 	@Override
-	public boolean findUser(UserBean user) {
+	public boolean findUser(User user) {
 		return this.daoUsuario.findUser(user); 
 	}
 
 	@Override
-	public UserBean getUserInstance(UserBean user) {
+	public User getUserInstance(User user) {
 		return this.daoUsuario.getUserInstance(user);
 	}	
 }

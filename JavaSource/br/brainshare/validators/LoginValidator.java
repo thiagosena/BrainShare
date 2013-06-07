@@ -8,7 +8,7 @@ import javax.faces.validator.ValidatorException;
 
 import br.brainshare.business.IServiceUser;
 import br.brainshare.business.ServiceUser;
-import br.brainshare.model.UserBean;
+import br.brainshare.model.User;
 
 public class LoginValidator implements Validator{
 
@@ -16,7 +16,7 @@ public class LoginValidator implements Validator{
 	public void validate(FacesContext context, UIComponent component, Object value)
 			throws ValidatorException {
 		
-		UserBean user = (UserBean) value;
+		User user = (User) value;
 		IServiceUser service = new ServiceUser();
 		boolean validator = service.findUser(user);
 		

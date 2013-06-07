@@ -4,29 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.brainshare.data.IDAOUser;
-import br.brainshare.model.UserBean;
+import br.brainshare.model.User;
 
 public class DAOMemoryUser implements IDAOUser {
 
-	private List<UserBean> usuarios;
+	private List<User> usuarios;
 
 	public DAOMemoryUser() {
-		this.usuarios = new ArrayList<UserBean>();
+		this.usuarios = new ArrayList<User>();
 
-		UserBean usuario = new UserBean();
+		User usuario = new User();
 		usuario.setUsername("renato");
 		usuario.setPassword("123456");
 		this.usuarios.add(usuario);
 	}
 
 
-	public List<UserBean> listAll() {
+	public List<User> listAll() {
 		//System.out.println("Chegou no DAO, Uira");
 		return usuarios;
 	}
 
 
-	public void save(UserBean user) {
+	public void save(User user) {
 
 		if ((user.getUsername() == "") || (user.getPassword() == "")) {
 			throw new NullPointerException();
@@ -38,14 +38,14 @@ public class DAOMemoryUser implements IDAOUser {
 
 
 	@Override
-	public boolean findUser(UserBean user) {
+	public boolean findUser(User user) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
-	public UserBean getUserInstance(UserBean user) {
+	public User getUserInstance(User user) {
 		// TODO Auto-generated method stub
 		return null;
 	}

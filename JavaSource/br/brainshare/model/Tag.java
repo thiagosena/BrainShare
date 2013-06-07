@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tag")
-public class TagBean {
+public class Tag {
 	
 	@Id
 	@GeneratedValue
@@ -19,7 +19,7 @@ public class TagBean {
 	
 	private Integer qtd;
 
-	public TagBean(){
+	public Tag(){
 		this.qtd=0;
 	}
 	

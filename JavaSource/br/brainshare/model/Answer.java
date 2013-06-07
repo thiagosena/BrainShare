@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "answer")
-public class AnswerBean {
+public class Answer {
 	
 	@Id
 	@GeneratedValue
@@ -22,11 +22,11 @@ public class AnswerBean {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_question", nullable = false)
-	private QuestionBean question;
+	private Question question;
 	
 	@OneToOne
 	@JoinColumn(name = "id_user", nullable = false)
-	private UserBean user;
+	private User user;
 	
 	@NotNull
 	private String answer;
@@ -42,19 +42,19 @@ public class AnswerBean {
 		this.id = id;
 	}
 
-	public QuestionBean getQuestion() {
+	public Question getQuestion() {
 		return question;
 	}
 
-	public void setQuestion(QuestionBean question) {
+	public void setQuestion(Question question) {
 		this.question = question;
 	}
 
-	public UserBean getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserBean user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

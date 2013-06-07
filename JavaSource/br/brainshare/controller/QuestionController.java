@@ -16,20 +16,20 @@ import br.brainshare.business.IServiceQuestion;
 import br.brainshare.business.IServiceTag;
 import br.brainshare.business.ServiceQuestion;
 import br.brainshare.business.ServiceTag;
-import br.brainshare.model.QuestionBean;
-import br.brainshare.model.TagBean;
-import br.brainshare.model.UserBean;
+import br.brainshare.model.Question;
+import br.brainshare.model.Tag;
+import br.brainshare.model.User;
 
 @ManagedBean(name = "questionController")
 @RequestScoped
 public class QuestionController {
 
-	private QuestionBean quest;
-	private TagBean tagInstance;
+	private Question quest;
+	private Tag tagInstance;
 
-	private List<QuestionBean> lista = null;
-	private List<QuestionBean> listaTag = null;
-	private List<QuestionBean> listByTitleOrDesc = null;
+	private List<Question> lista = null;
+	private List<Question> listaTag = null;
+	private List<Question> listByTitleOrDesc = null;
 
 	private IServiceQuestion service = new ServiceQuestion();
 	private IServiceTag sTag = new ServiceTag();
@@ -37,8 +37,8 @@ public class QuestionController {
 	private String titleOrDesc;
 
 	public QuestionController() {
-		quest = new QuestionBean();
-		tagInstance = new TagBean();
+		quest = new Question();
+		tagInstance = new Tag();
 	}
 
 	public String save() throws CampoVazioException, tagInexistenteException, tagException {
@@ -46,7 +46,7 @@ public class QuestionController {
 		quest.setDateRegister(new Date());
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(true);
-		UserBean user = (UserBean) session.getAttribute("usuarioLogado");
+		User user = (User) session.getAttribute("usuarioLogado");
 		quest.setUser(user);
 		quest.setCountAnswer(0);
 
@@ -74,30 +74,30 @@ public class QuestionController {
 		return "findQuestion";
 	}
 
-	public TagBean getTagInstance() {
+	public Tag getTagInstance() {
 		return tagInstance;
 	}
 
-	public void setTagInstance(TagBean tagInstance) {
+	public void setTagInstance(Tag tagInstance) {
 		this.tagInstance = tagInstance;
 	}
 
-	public QuestionBean getQuest() {
+	public Question getQuest() {
 		return quest;
 	}
 
-	public void setQuest(QuestionBean quest) {
+	public void setQuest(Question quest) {
 		this.quest = quest;
 	}
 
-	public List<QuestionBean> getLista() {
+	public List<Question> getLista() {
 		if (lista == null) {
 			lista = service.listAll();
 		}
 		return lista;
 	}
 
-	public List<QuestionBean> getListByTitleOrDesc() {
+	public List<Question> getListByTitleOrDesc() {
 		if (listByTitleOrDesc == null) {
 			listByTitleOrDesc = service.findQuestionByTitleOrDescription(
 					titleOrDesc, titleOrDesc);
@@ -113,11 +113,11 @@ public class QuestionController {
 		this.titleOrDesc = titleOrDesc;
 	}
 
-	public List<QuestionBean> getListaTag() {
+	public List<Question> getListaTag() {
 		return listaTag;
 	}
 
-	public void setListaTag(List<QuestionBean> listaTag) {
+	public void setListaTag(List<Question> listaTag) {
 		this.listaTag = listaTag;
 	}
 }
