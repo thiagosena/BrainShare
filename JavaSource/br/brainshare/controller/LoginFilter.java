@@ -42,6 +42,7 @@ public class LoginFilter implements Filter {
             if ((request.getAttribute(FILTER_APPLIED) == null) 
                     && paginaAtual != null 
                     && (!paginaAtual.endsWith("login.jsf"))
+                    && (!paginaAtual.endsWith("pages/index.jsf"))
                     && (!paginaAtual.endsWith("pages/registerUser.jsf"))
                     && (paginaAtual.endsWith(".jsf"))) {
                 request.setAttribute(FILTER_APPLIED, Boolean.TRUE);
