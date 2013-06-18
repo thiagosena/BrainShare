@@ -11,7 +11,27 @@
 <ui:composition template="/templates/template.xhtml">
     <ui:define name="pageTitle">Login - BrainShare</ui:define>
     <ui:define name="pageContent">
-    
+        <f:view>
+            <ui:param name="originalURL" value="#{request.requestURI}?#{request.queryString}" />
+            <f:metadata>
+                <f:event rendered="#{empty userSession.profile}" type="preRenderView" listener="#{userSession.setOriginalURL(originalURL)}" />
+            </f:metadata>
+        </f:view>
+        
+        <h:form>
+            <h:panelGroup rendered="#{empty userSession.profile}" id="socialButtons" >
+                <h:commandLink id="facebook" action="#{userSession.socialConnect}" >
+                    <f:setPropertyActionListener target="#{userSession.providerID}" value="facebook" />
+                    <h:graphicImage value="public/images/facebook.png" />
+                </h:commandLink>
+                
+                <h:commandLink id="google" action="#{userSession.socialConnect}" >
+                    <f:setPropertyActionListener target="#{userSession.providerID}" value="google" />
+                    <h:graphicImage value="public/images/google.png" />
+                </h:commandLink>
+            </h:panelGroup>
+        </h:form>
+        
         <div class="row">
         <div class="large-4 large-offset-4 columns sign-in">
             <div class="stacked-box">
