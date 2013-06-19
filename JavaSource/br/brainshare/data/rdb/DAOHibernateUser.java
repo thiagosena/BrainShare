@@ -38,7 +38,7 @@ public class DAOHibernateUser implements IDAOUser {
 	@Override
 	public boolean findUser(User user) {
 		User userAdd = (User) session.createCriteria(User.class)
-				.add(Restrictions.and(Restrictions.eq("username",user.getUsername()),Restrictions.eq("password",user.getPassword())))
+				.add(Restrictions.eq("email",user.getEmail()))
 	            .uniqueResult();
 		
 		if(userAdd == null){
@@ -56,4 +56,18 @@ public class DAOHibernateUser implements IDAOUser {
 		return userInstance;
 	}
 
+	@Override
+	public boolean findUserLogin(User user) {
+		User userAdd = (User) session.createCriteria(User.class)
+				.add(Restrictions.and(Restrictions.eq("username",user.getUsername()),Restrictions.eq("password",user.getPassword())))
+	            .uniqueResult();
+		
+		if(userAdd == null){
+			return false;
+		} else {
+			return true;	
+		}
+	}
+
 }
+

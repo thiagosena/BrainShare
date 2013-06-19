@@ -42,26 +42,37 @@ public class UserController implements Serializable {
 	}
 
 	public String save() {
-		if (!user.getPassword().equals(passwordVal)) {
-			FacesMessage msg = new FacesMessage("Senhas diferentes");
-			FacesContext.getCurrentInstance().addMessage("erro", msg);
+		if (!user.getPassword().equals(passwordVal) || service.findUser(user)) {
+			if(!user.getPassword().equals(passwordVal)){
+				FacesMessage msg = new FacesMessage("Senhas diferentes");
+				FacesContext.getCurrentInstance().addMessage("erro", msg);
+			} else {
+				FacesMessage msg = new FacesMessage("Já existe um usuário com esse email");
+				FacesContext.getCurrentInstance().addMessage("erro", msg);
+			}
 			return null;
 		} else {
 			user.setDateRegister(new Date());
 			service.save(user);
-			return "login";
+			return login();
 		}
 	}
 
 	public String login() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		if (service.findUser(user)) {
+		if (service.findUserLogin(user)) {
 			this.user = service.getUserInstance(user);
 			HttpSession sessaoHttp = (HttpSession) facesContext
 					.getExternalContext().getSession(true);
 			sessaoHttp.setAttribute(CREDENTIAL, user);
-			return "pages/principal";
+			try {
+				facesContext.getExternalContext().redirect("http://localhost:8080/BrainShare/pages/principal.jsf");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "principal";
 		} else {
 			/* Cria uma mensagem. */
 			FacesMessage msg = new FacesMessage("Usuário ou senha inválido!");
@@ -91,13 +102,14 @@ public class UserController implements Serializable {
 		sessaoHttp.invalidate();
 		FacesContext faces = FacesContext.getCurrentInstance();  
         ExternalContext context = faces.getExternalContext();  
-        
-		try {
-			context.redirect("index.jsf");
+        context.invalidateSession();
+        try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(context.getRequestContextPath() + "/");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	public User getUser() {

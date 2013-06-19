@@ -12,10 +12,17 @@
 			<ui:define name="pageTitle">Home - User</ui:define>
 			<ui:define name="pageContent">
             <h:form>
-				Bem Vindo <h:outputFormat value="#{sessionScope['usuarioLogado'].username}" style="color:red;" /> <br />
-                Email: <h:outputFormat value="#{sessionScope['usuarioLogado'].email}" style="color:red;" /><br/>
-                Senha: <h:outputFormat value="#{sessionScope['usuarioLogado'].password}" style="color:red;" /><br />
-                <h:commandButton value="Logout" action="#{userController.logout}" rendered="#{userController.loggedIn}" />
+                <h:panelGrid rendered="#{empty userSession.profile}" >
+    				Bem Vindo <h:outputFormat value="#{sessionScope['usuarioLogado'].username}" style="color:red;" /> <br />
+                    Email: <h:outputFormat value="#{sessionScope['usuarioLogado'].email}" style="color:red;" /><br/>
+                    <h:commandButton value="Logout" action="#{userController.logout}" rendered="#{userController.loggedIn}" />
+                </h:panelGrid>
+                
+                <h:panelGrid columns="3" rendered="#{not empty userSession.profile}" >
+                    <h:graphicImage rendered="#{not empty userSession.profile.profileImageURL}" value="#{userSession.profile.profileImageURL}" />
+                    <h:outputText value="Oi, #{userSession.profile.fullName}" />
+                    <h:commandButton value="Sair" actionListener="#{userSession.logOut}" />
+                </h:panelGrid>
             </h:form>
 			</ui:define>
 	</ui:composition>

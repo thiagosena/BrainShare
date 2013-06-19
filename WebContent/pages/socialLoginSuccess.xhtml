@@ -11,14 +11,8 @@
 	<ui:composition template="/templates/template.xhtml">
 			<ui:define name="pageTitle">Social login success</ui:define>
 			<ui:define name="pageContent">
-				<h:outputText style="display:none;" value="#{userSession.contexto}" />
-                <h:form>
-                    <h:panelGrid columns="3" rendered="#{not empty userSession.profile}" >
-                        <h:graphicImage rendered="#{not empty userSession.profile.profileImageURL}" value="#{userSession.profile.profileImageURL}" />
-                        <h:outputText value="Oi, #{userSession.profile.fullName}" />
-                        <h:commandButton value="Sair" actionListener="#{userSession.logOut}" />
-                    </h:panelGrid>
-                </h:form>
+				<h:outputText value="#{userSession.contexto}" />
+                
 			</ui:define>
 	</ui:composition>
 

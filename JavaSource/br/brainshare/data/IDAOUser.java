@@ -10,4 +10,5 @@ public interface IDAOUser {
 	public void save(User user);
 	public boolean findUser(User user);
 	public User getUserInstance(User user);
+	public boolean findUserLogin(User user);
 }

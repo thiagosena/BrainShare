@@ -35,7 +35,6 @@
                 <li>
                     <h:link outcome="/login" value="Login" rendered="#{!userController.loggedIn and (empty userSession.profile)}" />
                     <h:link outcome="/pages/principal" value="#{sessionScope['usuarioLogado'].email}" rendered="#{userController.loggedIn}" />
-                    <h:link outcome="/pages/socialLoginSuccess" value="#{userSession.profile.fullName}" rendered="#{not empty userSession.profile}" />
                 </li>
                 <li><a href="#">Fórum</a></li>
                 <li><a href="#">Sobre</a></li>

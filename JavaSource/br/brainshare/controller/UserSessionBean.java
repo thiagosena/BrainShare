@@ -3,6 +3,7 @@ package br.brainshare.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.AuthProvider;
+import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 
@@ -11,11 +12,16 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.brickred.socialauth.Profile;
 import org.brickred.socialauth.SocialAuthConfig;
 import org.brickred.socialauth.SocialAuthManager;
 import org.brickred.socialauth.util.SocialAuthUtil;
+
+import br.brainshare.business.IServiceUser;
+import br.brainshare.business.ServiceUser;
+import br.brainshare.model.User;
 
 @ManagedBean(name = "userSession")
 @SessionScoped
@@ -29,9 +35,9 @@ public class UserSessionBean implements Serializable {
 	private static final String FACEBOOK_APP_SECRET = "9e5688d06fb79635516761dfc7983604";
 	
 	private SocialAuthManager manager;
-    private String            originalURL;
-    private String            providerID;
-    private Profile           profile;
+    private String originalURL;
+    private String providerID;
+    private Profile profile;
     private String contexto;
     
 	public UserSessionBean() {  }
@@ -50,6 +56,8 @@ public class UserSessionBean implements Serializable {
         manager = new SocialAuthManager();
         manager.setSocialAuthConfig(config);
         
+        System.out.println("manager = "+manager);
+        System.out.println("profile = "+providerID);
         // 'successURL' is the page you'll be redirected to on successful login
         String successURL = "http://localhost:8080/BrainShare/pages/socialLoginSuccess.jsf"; 
         String authenticationURL = manager.getAuthenticationUrl(providerID, successURL);
@@ -67,17 +75,38 @@ public class UserSessionBean implements Serializable {
                 org.brickred.socialauth.AuthProvider provider = manager.connect(map);
                 this.profile = provider.getUserProfile();
                 System.out.println("User's Social profile: " + profile);
+                
+                User user = new User();
+                user.setEmail(profile.getEmail());
+                user.setUsername(profile.getFirstName());
+                user.setPassword("default123");
+                user.setDateRegister(new Date());
+                
+                IServiceUser service = new ServiceUser();
+                
+                if(!service.findUser(user)){
+                	System.out.println("vai salvar!");
+                	service.save(user);
+                	user = service.getUserInstance(user);
+                } else {
+                	user = service.getUserInstance(user);
+                }
+                
+                HttpSession sessaoHttp = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+    			sessaoHttp.setAttribute(UserController.CREDENTIAL, user);
+    			
+    			FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/BrainShare/pages/principal.jsf");
                 // Do what you want with the data (e.g. persist to the database, etc.)
-                return ("User's Social profile: " + profile);
+                return "login success";
             
                 // Redirect the user back to where they have been before logging in
                 //FacesContext.getCurrentInstance().getExternalContext().redirect(originalURL);
             
-            } else return "Não entrou no if.. manage = null";
+            } else return "manager = "+manager;
         } catch (Exception ex) {
             System.out.println("UserSession - Exception: " + ex.toString());
         }
-		return "deu em nada!!"; 
+		return "login"; 
     }
     
     public void logOut() {

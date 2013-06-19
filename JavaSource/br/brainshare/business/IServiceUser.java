@@ -8,6 +8,7 @@ public interface IServiceUser {
 
 	public List<User> listAllUser();
 	public boolean findUser(User user);
+	public boolean findUserLogin(User user);
 	public User getUserInstance(User user);
 	public void save(User user);
 	
