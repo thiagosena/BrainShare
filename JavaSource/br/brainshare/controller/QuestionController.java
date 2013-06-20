@@ -34,7 +34,7 @@ public class QuestionController {
 	private IServiceQuestion service = new ServiceQuestion();
 	private IServiceTag sTag = new ServiceTag();
 
-	private String titleOrDesc;
+	private String titleOrDesc = "";
 
 	public QuestionController() {
 		quest = new Question();
