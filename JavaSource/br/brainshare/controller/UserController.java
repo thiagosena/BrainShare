@@ -11,6 +11,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import lib.exceptions.DAOException;
+import lib.exceptions.UserException;
+
 import br.brainshare.business.IServiceUser;
 import br.brainshare.business.ServiceUser;
 import br.brainshare.model.User;
@@ -42,47 +45,58 @@ public class UserController implements Serializable {
 	}
 
 	public String save() {
-		if (!user.getPassword().equals(passwordVal) || service.findUser(user)) {
-			if(!user.getPassword().equals(passwordVal)){
-				FacesMessage msg = new FacesMessage("Senhas diferentes");
-				FacesContext.getCurrentInstance().addMessage("erro", msg);
+		try {
+			if (!user.getPassword().equals(passwordVal) || service.findUser(user)) {
+				if(!user.getPassword().equals(passwordVal)){
+					FacesMessage msg = new FacesMessage("Senhas diferentes");
+					FacesContext.getCurrentInstance().addMessage("erro", msg);
+					
+				} else {
+					FacesMessage msg = new FacesMessage("Já existe um usuário com esse email");
+					FacesContext.getCurrentInstance().addMessage("erro", msg);
+				}
+				return null;
 			} else {
-				FacesMessage msg = new FacesMessage("Já existe um usuário com esse email");
-				FacesContext.getCurrentInstance().addMessage("erro", msg);
+				user.setDateRegister(new Date());
+				service.save(user);
 			}
-			return null;
-		} else {
-			user.setDateRegister(new Date());
-			service.save(user);
-			return login();
+		} catch (UserException e) {
+			e.printStackTrace();
+		} catch (DAOException e) {
+			e.printStackTrace();
 		}
+		return login();
 	}
 
 	public String login() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		if (service.findUserLogin(user)) {
-			this.user = service.getUserInstance(user);
-			HttpSession sessaoHttp = (HttpSession) facesContext
-					.getExternalContext().getSession(true);
-			sessaoHttp.setAttribute(CREDENTIAL, user);
-			try {
+		try {
+			if (service.findUserLogin(user)) {
+				this.user = service.getUserInstance(user);
+				HttpSession sessaoHttp = (HttpSession) facesContext
+						.getExternalContext().getSession(true);
+				sessaoHttp.setAttribute(CREDENTIAL, user);
 				facesContext.getExternalContext().redirect("http://localhost:8080/BrainShare/pages/principal.jsf");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+ 
+			} else {
+				/* Cria uma mensagem. */
+				FacesMessage msg = new FacesMessage("Usuário ou senha inválido!");
+				/*
+				 * Obtém a instancia atual do FacesContext e adiciona a mensagem de
+				 * erro nele.
+				 */
+				FacesContext.getCurrentInstance().addMessage("erro", msg);
+				return null;
 			}
-			return "principal";
-		} else {
-			/* Cria uma mensagem. */
-			FacesMessage msg = new FacesMessage("Usuário ou senha inválido!");
-			/*
-			 * Obtém a instancia atual do FacesContext e adiciona a mensagem de
-			 * erro nele.
-			 */
-			FacesContext.getCurrentInstance().addMessage("erro", msg);
-			return null;
+		} catch (UserException e) {
+			e.printStackTrace();
+		} catch (DAOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		return "principal";
 	}
 
 	public boolean isLoggedIn() {

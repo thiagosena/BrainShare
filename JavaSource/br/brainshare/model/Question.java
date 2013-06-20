@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
+import lib.exceptions.DAOException;
+import lib.exceptions.QuestionException;
+
 import br.brainshare.business.IServiceQuestion;
 import br.brainshare.business.ServiceQuestion;
 
@@ -111,7 +114,13 @@ public class Question {
 	public String show(){
 		IServiceQuestion service = new ServiceQuestion();
 		Question q = null; 
-		q = service.getQuestionInstance(title);
+		try {
+			q = service.getQuestionInstance(title);
+		} catch (QuestionException e) {
+			e.printStackTrace();
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 		HttpSession sessaoHttp = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);  
         sessaoHttp.setAttribute("questaoClicada", q);
 		return "question";

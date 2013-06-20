@@ -17,24 +17,24 @@
                         <h:outputLabel value="Insira sua pergunta " />
                         <h:inputTextarea id="pergunta" value="#{questionController.quest.question}" />
 
-                        <h:outputLabel value="Tag " />
+                        <h:outputLabel value="Categoria" />
                         <h:selectOneMenu value="#{questionController.tagInstance.name}" required="true"
-                            requiredMessage="Campo tag obrigatorio" filter="true">
+                            requiredMessage="Campo tag obrigatorio" filter="true" >
                             <f:selectItem itemValue="" itemLabel="selecione" />
                             <f:selectItems value="#{tagsController.lista}" itemValue="#{l.name}" var="l"
                                 itemLabel="#{l.name}" />
                         </h:selectOneMenu>
 
-                        <h:commandButton action="#{questionController.save}" value="Salvar pergunta" />
+                        <h:commandButton action="#{questionController.save}" value="Salvar pergunta" style="margin-top:20px;" />
                     </h:form>
                     <h:form>
-                        <a href="insertTag.jsf" class="sign-in__forgot-password" style="width:110px; float: left">Inserir Tag</a>
-                        <h:commandLink value="lista todas as tags" action="#{tagsController.truelist()}" />
+                        <a href="insertTag.jsf" >Adicionar nova categoria</a><br />
+                        <h:commandLink value="Listar todas as categorias" action="#{tagsController.truelist()}" />
 
                         <h:dataTable value="#{tagsController.lista}" var="p" rendered="#{tagsController.list}"
                             id="tabela" border="1">
 
-                            <f:facet name="header">  Lista de todas as tags</f:facet>
+                            <f:facet name="header">  Lista de todas as categorias</f:facet>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="Nome"></h:outputText>
@@ -44,7 +44,7 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Quantidade de tags utilizada"></h:outputText>
+                                    <h:outputText value="Quantidade de categoria utilizada"></h:outputText>
                                 </f:facet>
                                 <h:outputText value='#{p.qtd}'></h:outputText>
                                 <f:param name="id" value="#{p.qtd}" />

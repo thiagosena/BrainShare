@@ -9,9 +9,10 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-import lib.exceptions.CampoVazioException;
-import lib.exceptions.tagException;
-import lib.exceptions.tagInexistenteException;
+import lib.exceptions.DAOException;
+import lib.exceptions.EmptyFieldException;
+import lib.exceptions.QuestionException;
+import lib.exceptions.TagException;
 import br.brainshare.business.IServiceQuestion;
 import br.brainshare.business.IServiceTag;
 import br.brainshare.business.ServiceQuestion;
@@ -41,7 +42,7 @@ public class QuestionController {
 		tagInstance = new Tag();
 	}
 
-	public String save() throws CampoVazioException, tagInexistenteException, tagException {
+	public String save() {
 
 		quest.setDateRegister(new Date());
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
@@ -53,19 +54,28 @@ public class QuestionController {
 		try {
 			sTag.searchTag(tagInstance.getName());
 
-		} catch (tagInexistenteException e) {
-			FacesMessage msg = new FacesMessage(
-					"Essa tag não existe, criei uma nova tag");
-			FacesContext.getCurrentInstance().addMessage("erro", msg);
-			return null;
+			tagInstance = sTag.getTagInstance(tagInstance);
+		} catch (TagException e1) {
+			e1.printStackTrace();
+		} catch (DAOException e1) {
+			e1.printStackTrace();
 		}
-		tagInstance = sTag.getTagInstance(tagInstance);
 		tagInstance.incrementQtd();
 		System.out.println(tagInstance.getName());
 
 		quest.setTags(tagInstance);
 
-		service.save(quest);
+		try {
+			service.save(quest);
+		} catch (QuestionException e) {
+			FacesMessage msg = new FacesMessage("Já existe uma pergunta com esse título.");
+			FacesContext.getCurrentInstance().addMessage("erro", msg);
+			return null;
+		} catch (EmptyFieldException e) {
+			e.printStackTrace();
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
 
 		return "index";
 	}
@@ -92,15 +102,27 @@ public class QuestionController {
 
 	public List<Question> getLista() {
 		if (lista == null) {
-			lista = service.listAll();
+			try {
+				lista = service.listAll();
+			} catch (QuestionException e) {
+				e.printStackTrace();
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
 		}
 		return lista;
 	}
 
 	public List<Question> getListByTitleOrDesc() {
 		if (listByTitleOrDesc == null) {
-			listByTitleOrDesc = service.findQuestionByTitleOrDescription(
-					titleOrDesc, titleOrDesc);
+			try {
+				listByTitleOrDesc = service.findQuestionByTitleOrDescription(
+						titleOrDesc, titleOrDesc);
+			} catch (QuestionException e) {
+				e.printStackTrace();
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
 		}
 		return listByTitleOrDesc;
 	}

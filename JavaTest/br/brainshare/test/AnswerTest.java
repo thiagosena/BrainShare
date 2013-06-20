@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
-import lib.exceptions.RespostaException;
+import lib.exceptions.AnswerException;
+import lib.exceptions.DAOException;
+import lib.exceptions.EmptyFieldException;
 
 import org.junit.Test;
 
@@ -31,7 +33,13 @@ public class AnswerTest {
 		IServiceAnswer rn = new ServiceAnswer();
 		try {
 			rn.save(a);
-		} catch (RespostaException e) {
+		} catch (AnswerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (EmptyFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

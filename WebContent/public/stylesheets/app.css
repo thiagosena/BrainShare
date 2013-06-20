@@ -5472,7 +5472,7 @@ body {
 }
 
 /* line 189, ../sass/app.scss */
-.tag {
+.categoria {
   font-size: 12px;
   border-radius: 3px;
   color: #b59500;
@@ -5486,7 +5486,7 @@ body {
   margin-left: 0;
 }
 /* line 201, ../sass/app.scss */
-.tag:hover {
+.categoria:hover {
   color: #b59500;
 }
 

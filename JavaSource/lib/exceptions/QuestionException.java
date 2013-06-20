@@ -1,13 +1,13 @@
 package lib.exceptions;
 
-public class QuestaoException extends Exception {
+public class QuestionException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public QuestaoException(String s){
+	public QuestionException(String s){
 		super(s);
 	}
 }

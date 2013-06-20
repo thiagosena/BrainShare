@@ -7,9 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import lib.exceptions.tagException;
-import lib.exceptions.tagInexistenteException;
-
+import lib.exceptions.DAOException;
+import lib.exceptions.TagException;
 import br.brainshare.business.IServiceTag;
 import br.brainshare.business.ServiceTag;
 import br.brainshare.model.Tag;
@@ -33,14 +32,14 @@ public class TagsController {
 
 	
 
-	public String save() throws tagException{
-		try{
+	public String save() throws TagException, DAOException{
+		try {
 			service.searchTag(tag.getName());
-			FacesMessage msg = new FacesMessage("Essa tag já existe");
+			FacesMessage msg = new FacesMessage("Tag ja existe.");
 			FacesContext.getCurrentInstance().addMessage("erro", msg);
 			return null;
 		}
-		catch(tagInexistenteException e){
+		catch(TagException e){
 			service.save(tag);
 			return "index";
 		}
@@ -57,9 +56,15 @@ public class TagsController {
 		this.tag = tag;
 	}
 	
-	public List<Tag> getLista() throws tagException {
+	public List<Tag> getLista() {
 		if(lista == null){
-			lista = service.getTags();
+			try {
+				lista = service.getTags();
+			} catch (TagException e) {
+				e.printStackTrace();
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
 		}
 		return lista;
 	}
